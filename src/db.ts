@@ -319,7 +319,7 @@ const DEFAULT_SETTINGS: DbSettings = {
   googleAnalyticsId: 'UA-1928374-12',
   freeShippingThreshold: 10000,
   flatShippingCharge: 250,
-  heroBannerImage: '/assets/arzen-duffle.svg',
+  heroBannerImage: 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=1600&q=80',
   heroTitle: 'A Legacy of Distinction',
   heroSubtitle: 'THE HOUSE OF ARZEN',
   heroTagline: 'BUILT DIFFERENT',
@@ -328,12 +328,12 @@ const DEFAULT_SETTINGS: DbSettings = {
 };
 
 const DEFAULT_GALLERY: GalleryImage[] = [
-  { id: 'gal-1', url: '/assets/arzen-tote-vertical.svg', altText: 'Signature Tote (Sovereign Tan)', size: '142 KB', uploadDate: '2026-07-12T07:42:16-07:00' },
-  { id: 'gal-2', url: '/assets/arzen-handbag-y.svg', altText: 'Luxe Shoulder Bag (Obsidian Black)', size: '198 KB', uploadDate: '2026-07-12T07:42:16-07:00' },
-  { id: 'gal-3', url: '/assets/arzen-tote-elevate.svg', altText: 'Signature Tote (Matte Black)', size: '220 KB', uploadDate: '2026-07-12T07:42:16-07:00' },
-  { id: 'gal-4', url: '/assets/arzen-backpack-built-different.svg', altText: 'Elite Backpack (Matte Black)', size: '175 KB', uploadDate: '2026-07-12T07:42:16-07:00' },
-  { id: 'gal-5', url: '/assets/arzen-handbag-charm.svg', altText: 'Signature Tote (Luxury Gold)', size: '184 KB', uploadDate: '2026-07-12T07:42:16-07:00' },
-  { id: 'gal-6', url: '/assets/arzen-duffle.svg', altText: 'Sovereign Travel Duffle (Sovereign Tan)', size: '210 KB', uploadDate: '2026-07-12T07:42:16-07:00' },
+  { id: 'gal-1', url: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80', altText: 'Signature Tote (Sovereign Tan)', size: '142 KB', uploadDate: '2026-07-12T07:42:16-07:00' },
+  { id: 'gal-2', url: 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=800&q=80', altText: 'Luxe Shoulder Bag (Obsidian Black)', size: '198 KB', uploadDate: '2026-07-12T07:42:16-07:00' },
+  { id: 'gal-3', url: 'https://images.unsplash.com/photo-1547949003-9792a18a2601?auto=format&fit=crop&w=800&q=80', altText: 'Signature Tote (Matte Black)', size: '220 KB', uploadDate: '2026-07-12T07:42:16-07:00' },
+  { id: 'gal-4', url: 'https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=800&q=80', altText: 'Elite Backpack (Matte Black)', size: '175 KB', uploadDate: '2026-07-12T07:42:16-07:00' },
+  { id: 'gal-5', url: 'https://images.unsplash.com/photo-1566150905458-1bf1fc15aeb9?auto=format&fit=crop&w=800&q=80', altText: 'Signature Tote (Luxury Gold)', size: '184 KB', uploadDate: '2026-07-12T07:42:16-07:00' },
+  { id: 'gal-6', url: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80', altText: 'Sovereign Travel Duffle (Sovereign Tan)', size: '210 KB', uploadDate: '2026-07-12T07:42:16-07:00' },
 ];
 
 // --- ADVANCED INDEXEDDB & LOCALSTORAGE HYBRID DATABASE ENGINE ---

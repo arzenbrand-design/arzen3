@@ -6,3 +6,4 @@
 /contact /index.html 200
 /admin /index.html 200
 /product-detail /index.html 200
+/product/* /index.html 200

@@ -10,14 +10,14 @@ export const products: Product[] = [
     reviewsCount: 128,
     category: 'Tote',
     images: [
-      '/assets/arzen-tote-elevate.svg',
-      '/assets/arzen-tote-vertical.svg',
-      '/assets/arzen-tote-elevate.svg'
+      'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1594223274512-ad4803739b7c?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=800&q=80'
     ],
     colors: [
-      { name: 'Matte Black', hex: '#0B0B0B', image: '/assets/arzen-tote-elevate.svg' },
-      { name: 'Luxury Gold', hex: '#C8A25D', image: '/assets/arzen-tote-elevate.svg' },
-      { name: 'Sovereign Tan', hex: '#8B5A2B', image: '/assets/arzen-tote-vertical.svg' }
+      { name: 'Matte Black', hex: '#0B0B0B', image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80' },
+      { name: 'Luxury Gold', hex: '#C8A25D', image: 'https://images.unsplash.com/photo-1594223274512-ad4803739b7c?auto=format&fit=crop&w=800&q=80' },
+      { name: 'Sovereign Tan', hex: '#8B5A2B', image: 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=800&q=80' }
     ],
     description: 'Exquisitely tailored from double-faced full grain calfskin leather, the ARZEN Signature Tote combines a structured silhouette with unmatched utility. Accented by hand-polished golden brass hardware and our custom gold triangular seal, it represents the absolute peak of modern luxury.',
     materials: [
@@ -48,14 +48,14 @@ export const products: Product[] = [
     reviewsCount: 98,
     category: 'Shoulder Bag',
     images: [
-      '/assets/arzen-handbag-y.svg',
-      '/assets/arzen-handbag-charm.svg',
-      '/assets/arzen-handbag-chain.svg'
+      'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1566150905458-1bf1fc15aeb9?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1591561954557-26941169b49e?auto=format&fit=crop&w=800&q=80'
     ],
     colors: [
-      { name: 'Obsidian Black', hex: '#0B0B0B', image: '/assets/arzen-handbag-y.svg' },
-      { name: 'Imperial Gold', hex: '#C8A25D', image: '/assets/arzen-handbag-charm.svg' },
-      { name: 'Pearl White', hex: '#F5F5F0', image: '/assets/arzen-handbag-chain.svg' }
+      { name: 'Obsidian Black', hex: '#0B0B0B', image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=800&q=80' },
+      { name: 'Imperial Gold', hex: '#C8A25D', image: 'https://images.unsplash.com/photo-1566150905458-1bf1fc15aeb9?auto=format&fit=crop&w=800&q=80' },
+      { name: 'Pearl White', hex: '#F5F5F0', image: 'https://images.unsplash.com/photo-1591561954557-26941169b49e?auto=format&fit=crop&w=800&q=80' }
     ],
     description: 'An artistic statement piece crafted in a sculpted crescent contour. Made with premium croco-embossed full-grain calfskin leather and featuring a high-polish golden curb chain, the Luxe Shoulder Bag transitions effortlessly from high-profile business lunches to red-carpet soirées.',
     materials: [
@@ -84,14 +84,14 @@ export const products: Product[] = [
     reviewsCount: 156,
     category: 'Backpack',
     images: [
-      '/assets/arzen-backpack-built-different.svg',
-      '/assets/arzen-backpack-classic.svg',
-      '/assets/arzen-backpack-pink.svg'
+      'https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1547949003-9792a18a2601?auto=format&fit=crop&w=800&q=80'
     ],
     colors: [
-      { name: 'Matte Black', hex: '#0B0B0B', image: '/assets/arzen-backpack-built-different.svg' },
-      { name: 'Sovereign Gray', hex: '#4A4A4A', image: '/assets/arzen-backpack-classic.svg' },
-      { name: 'Obsidian Gold', hex: '#1C1813', image: '/assets/arzen-backpack-pink.svg' }
+      { name: 'Matte Black', hex: '#0B0B0B', image: 'https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=800&q=80' },
+      { name: 'Sovereign Gray', hex: '#4A4A4A', image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80' },
+      { name: 'Obsidian Gold', hex: '#1C1813', image: 'https://images.unsplash.com/photo-1547949003-9792a18a2601?auto=format&fit=crop&w=800&q=80' }
     ],
     description: 'Designed for modern leaders, the Elite Backpack combines architectural elegance with smart ergonomics. Outfitted with heavy-duty gold zipper chains and tailored in scratch-proof Saffiano leather, it offers pristine protection for your essential gear.',
     materials: [
@@ -122,14 +122,14 @@ export const products: Product[] = [
     reviewsCount: 112,
     category: 'Duffle',
     images: [
-      '/assets/arzen-duffle.svg',
-      '/assets/arzen-duffle.svg',
-      '/assets/arzen-duffle.svg'
+      'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1530177150700-84cd9611cf0a?auto=format&fit=crop&w=800&q=80'
     ],
     colors: [
-      { name: 'Sovereign Tan', hex: '#8B5A2B', image: '/assets/arzen-duffle.svg' },
-      { name: 'Matte Black', hex: '#0B0B0B', image: '/assets/arzen-duffle.svg' },
-      { name: 'Emerald Hunter', hex: '#0F2C22', image: '/assets/arzen-duffle.svg' }
+      { name: 'Sovereign Tan', hex: '#8B5A2B', image: 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80' },
+      { name: 'Matte Black', hex: '#0B0B0B', image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80' },
+      { name: 'Emerald Hunter', hex: '#0F2C22', image: 'https://images.unsplash.com/photo-1530177150700-84cd9611cf0a?auto=format&fit=crop&w=800&q=80' }
     ],
     description: 'The quintessential travel duffle. Beautifully hand-formed from thick, supple pull-up leather that develops a breathtaking vintage patina with time. Accented by high-capacity gold hardware, it is sized perfectly to fit all airline carry-on regulations.',
     materials: [
@@ -160,14 +160,14 @@ export const products: Product[] = [
     reviewsCount: 76,
     category: 'Sling',
     images: [
-      '/assets/arzen-backpack-pink.svg',
-      '/assets/arzen-backpack-pink.svg',
-      '/assets/arzen-backpack-pink.svg'
+      'https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1547949003-9792a18a2601?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80'
     ],
     colors: [
-      { name: 'Matte Black', hex: '#0B0B0B', image: '/assets/arzen-backpack-pink.svg' },
-      { name: 'Slate Gray', hex: '#708090', image: '/assets/arzen-backpack-pink.svg' },
-      { name: 'Crimson Royale', hex: '#58111A', image: '/assets/arzen-backpack-pink.svg' }
+      { name: 'Matte Black', hex: '#0B0B0B', image: 'https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=800&q=80' },
+      { name: 'Slate Gray', hex: '#708090', image: 'https://images.unsplash.com/photo-1547949003-9792a18a2601?auto=format&fit=crop&w=800&q=80' },
+      { name: 'Crimson Royale', hex: '#58111A', image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80' }
     ],
     description: 'A compact crossbody companion engineered for the active urbanite. Striking a perfect balance between technical utility and high luxury, the Urban Sling keeps your high-priority items safe, lightweight, and incredibly accessible.',
     materials: [
@@ -197,14 +197,14 @@ export const products: Product[] = [
     reviewsCount: 101,
     category: 'Laptop Bag',
     images: [
-      '/assets/arzen-suit-bag.svg',
-      '/assets/arzen-suit-bag.svg',
-      '/assets/arzen-suit-bag.svg'
+      'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1598532187811-7951d433c750?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1585776245991-cf89dd7fc73a?auto=format&fit=crop&w=800&q=80'
     ],
     colors: [
-      { name: 'Matte Black', hex: '#0B0B0B', image: '/assets/arzen-suit-bag.svg' },
-      { name: 'Classic Mahogany', hex: '#4A150B', image: '/assets/arzen-suit-bag.svg' },
-      { name: 'Charcoal Gold', hex: '#2A2A2A', image: '/assets/arzen-suit-bag.svg' }
+      { name: 'Matte Black', hex: '#0B0B0B', image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80' },
+      { name: 'Classic Mahogany', hex: '#4A150B', image: 'https://images.unsplash.com/photo-1598532187811-7951d433c750?auto=format&fit=crop&w=800&q=80' },
+      { name: 'Charcoal Gold', hex: '#2A2A2A', image: 'https://images.unsplash.com/photo-1585776245991-cf89dd7fc73a?auto=format&fit=crop&w=800&q=80' }
     ],
     description: 'An architecturally structured briefcase meticulously designed for modern executives. Featuring dual main sleeves, fully secure locking zippers, and exquisite pebble leather texture, this laptop briefcase is built different to make standard board meetings feel historic.',
     materials: [
@@ -234,14 +234,14 @@ export const products: Product[] = [
     reviewsCount: 43,
     category: 'Shoulder Bag',
     images: [
-      '/assets/arzen-handbag-chain.svg',
-      '/assets/arzen-handbag-charm.svg',
-      '/assets/arzen-handbag-chain.svg'
+      'https://images.unsplash.com/photo-1591561954557-26941169b49e?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1566150905458-1bf1fc15aeb9?auto=format&fit=crop&w=800&q=80'
     ],
     colors: [
-      { name: 'Polar Alabaster', hex: '#F5F5F0', image: '/assets/arzen-handbag-chain.svg' },
-      { name: 'Matte Black', hex: '#0B0B0B', image: '/assets/arzen-handbag-charm.svg' },
-      { name: 'Imperial Gold', hex: '#C8A25D', image: '/assets/arzen-handbag-chain.svg' }
+      { name: 'Polar Alabaster', hex: '#F5F5F0', image: 'https://images.unsplash.com/photo-1591561954557-26941169b49e?auto=format&fit=crop&w=800&q=80' },
+      { name: 'Matte Black', hex: '#0B0B0B', image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=800&q=80' },
+      { name: 'Imperial Gold', hex: '#C8A25D', image: 'https://images.unsplash.com/photo-1566150905458-1bf1fc15aeb9?auto=format&fit=crop&w=800&q=80' }
     ],
     description: 'Designed for minimal luxury. Crafted from premium full grain French leather, the Crossbody Clutch has an integrated magnetic locking flap with our iconic triangle brand crest. Holds phone, cards, keys, and cosmetics in sleek comfort.',
     materials: [
@@ -270,14 +270,14 @@ export const products: Product[] = [
     reviewsCount: 88,
     category: 'Duffle',
     images: [
-      '/assets/arzen-duffle.svg',
-      '/assets/arzen-duffle.svg',
-      '/assets/arzen-duffle.svg'
+      'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1530177150700-84cd9611cf0a?auto=format&fit=crop&w=800&q=80'
     ],
     colors: [
-      { name: 'Matte Black', hex: '#0B0B0B', image: '/assets/arzen-duffle.svg' },
-      { name: 'Cognac Amber', hex: '#9E5B26', image: '/assets/arzen-duffle.svg' },
-      { name: 'Emerald Hunter', hex: '#0F2C22', image: '/assets/arzen-duffle.svg' }
+      { name: 'Matte Black', hex: '#0B0B0B', image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80' },
+      { name: 'Cognac Amber', hex: '#9E5B26', image: 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80' },
+      { name: 'Emerald Hunter', hex: '#0F2C22', image: 'https://images.unsplash.com/photo-1530177150700-84cd9611cf0a?auto=format&fit=crop&w=800&q=80' }
     ],
     description: 'An oversized luxury travel statement. Crafted with pristine pebble leather panels, double-stitched reinforcements, and custom brass rivets, the Weekender provides the perfect volume for three-day escapes in supreme confidence.',
     materials: [

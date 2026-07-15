@@ -10,12 +10,10 @@ export const lifestyleProducts: Product[] = [
     reviewsCount: 72,
     category: 'Premium Water Bottles',
     images: [
-      '/assets/arzen-handbag-y.svg',
-      '/assets/arzen-backpack-pink.svg'
+      'https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=800&q=80'
     ],
     colors: [
-      { name: 'Matte Obsidian', hex: '#0B0B0B', image: '/assets/arzen-handbag-y.svg' },
-      { name: 'Polished Aurum', hex: '#C8A25D', image: '/assets/arzen-backpack-pink.svg' }
+      { name: 'Matte Obsidian', hex: '#0B0B0B', image: 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=800&q=80' }
     ],
     description: 'Double-walled vacuum insulated, forged from surgical-grade stainless steel with a micro-suede slip-proof leather sleeve and a heavy solid brass carrier loop. Keeps your elixirs ice-cold for 36 hours or hot for 18 hours.',
     materials: [
@@ -44,10 +42,10 @@ export const lifestyleProducts: Product[] = [
     reviewsCount: 45,
     category: 'Travel Bottles',
     images: [
-      '/assets/arzen-backpack-classic.svg'
+      'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=800&q=80'
     ],
     colors: [
-      { name: 'Carbon Black', hex: '#1C1C1C', image: '/assets/arzen-backpack-classic.svg' }
+      { name: 'Carbon Black', hex: '#1C1C1C', image: 'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=800&q=80' }
     ],
     description: 'Ultra-durable, scratch-proof powder finish travel canteen designed to fit seamlessly in luxury luggage side sleeves. Ergonomically weighted for perfect physical balance.',
     materials: [
@@ -74,10 +72,10 @@ export const lifestyleProducts: Product[] = [
     reviewsCount: 58,
     category: 'Coffee Mugs',
     images: [
-      '/assets/arzen-backpack-pink.svg'
+      'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80'
     ],
     colors: [
-      { name: 'Shadow Ceramic', hex: '#121212', image: '/assets/arzen-backpack-pink.svg' }
+      { name: 'Shadow Ceramic', hex: '#121212', image: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80' }
     ],
     description: 'Meticulously thrown bone-china ceramic mug coated in high-tactility charcoal glaze, featuring an exquisite hand-painted 24k liquid gold rim and an architectural flat-loop handle.',
     materials: [
@@ -92,7 +90,7 @@ export const lifestyleProducts: Product[] = [
       'Thick thermal clay retaining perfect temperature',
       'Individually numbered signature stamp at bottom'
     ],
-    warranty: 'Coverage for glaze micro-crazing over 5 years',
+    warranty: 'Glaze micro-crazing cover for 5 years',
     shipping: 'Shipped in wooden cedar crate nestled in linen wood-shavings.',
     returns: 'Complimentary 7-day returns.'
   },
@@ -105,10 +103,10 @@ export const lifestyleProducts: Product[] = [
     reviewsCount: 39,
     category: 'Travel Mugs',
     images: [
-      '/assets/arzen-tote-vertical.svg'
+      'https://images.unsplash.com/photo-1577937927133-66ef06acdf18?auto=format&fit=crop&w=800&q=80'
     ],
     colors: [
-      { name: 'Sovereign Gray', hex: '#2C2C2C', image: '/assets/arzen-tote-vertical.svg' }
+      { name: 'Sovereign Gray', hex: '#2C2C2C', image: 'https://images.unsplash.com/photo-1577937927133-66ef06acdf18?auto=format&fit=crop&w=800&q=80' }
     ],
     description: 'Double-walled copper-plated travel mug with high-grade leak-proof spill lock mechanism. Tailored in heavy textured charcoal silicone sleeve for premium tactility.',
     materials: [
@@ -135,10 +133,10 @@ export const lifestyleProducts: Product[] = [
     reviewsCount: 81,
     category: 'Tumblers',
     images: [
-      '/assets/arzen-tote-vertical.svg'
+      'https://images.unsplash.com/photo-1577937927133-66ef06acdf18?auto=format&fit=crop&w=800&q=80'
     ],
     colors: [
-      { name: 'Matte Obsidian', hex: '#0B0B0B', image: '/assets/arzen-tote-vertical.svg' }
+      { name: 'Matte Obsidian', hex: '#0B0B0B', image: 'https://images.unsplash.com/photo-1577937927133-66ef06acdf18?auto=format&fit=crop&w=800&q=80' }
     ],
     description: 'Bold visual statement. Massive 900ml thermal tumbler with a matching matte black ceramic-coated interior and a solid brass-plated luxury reusable metal straw.',
     materials: [
@@ -166,10 +164,10 @@ export const lifestyleProducts: Product[] = [
     reviewsCount: 110,
     category: 'Sunglasses',
     images: [
-      '/assets/arzen-handbag-chain.svg'
+      'https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=800&q=80'
     ],
     colors: [
-      { name: 'Luxury Gold & Slate', hex: '#C8A25D', image: '/assets/arzen-handbag-chain.svg' }
+      { name: 'Luxury Gold & Slate', hex: '#C8A25D', image: 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=800&q=80' }
     ],
     description: 'Architectural hand-polished Japanese titanium wire frame, layered with 18k solid gold plating and paired with polarized carbon-composite lenses blocking 100% of UVA/UVB rays.',
     materials: [
@@ -198,10 +196,10 @@ export const lifestyleProducts: Product[] = [
     reviewsCount: 63,
     category: 'Blue Light Glasses',
     images: [
-      '/assets/arzen-handbag-chain.svg'
+      'https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=800&q=80'
     ],
     colors: [
-      { name: 'Brushed Brass', hex: '#B5945B', image: '/assets/arzen-handbag-chain.svg' }
+      { name: 'Brushed Brass', hex: '#B5945B', image: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=800&q=80' }
     ],
     description: 'Slim brushed-brass aesthetic wire frame fitted with zero-tint clear lenses designed to block 98% of harmful blue frequency radiation from high-fidelity screens.',
     materials: [
@@ -228,10 +226,10 @@ export const lifestyleProducts: Product[] = [
     reviewsCount: 142,
     category: 'Perfumes',
     images: [
-      '/assets/arzen-handbag-charm.svg'
+      'https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=800&q=80'
     ],
     colors: [
-      { name: 'Onyx Bottle', hex: '#0B0B0B', image: '/assets/arzen-handbag-charm.svg' }
+      { name: 'Onyx Bottle', hex: '#0B0B0B', image: 'https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=800&q=80' }
     ],
     description: 'An immersive olfactory portrait of luxury. Dark Cambodian agarwood (Oud) masterfully combined with Damascene rose petals, warm saffron leather, and rich Madagascar vanilla, housed in heavy crystal glass.',
     materials: [
@@ -260,10 +258,10 @@ export const lifestyleProducts: Product[] = [
     reviewsCount: 89,
     category: 'Candles',
     images: [
-      '/assets/arzen-handbag-charm.svg'
+      'https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=800&q=80'
     ],
     colors: [
-      { name: 'Amber Glow', hex: '#D4AF37', image: '/assets/arzen-handbag-charm.svg' }
+      { name: 'Amber Glow', hex: '#D4AF37', image: 'https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=800&q=80' }
     ],
     description: 'Hand-poured slow-melting soy wax infused with essential notes of leather, patchouli, and warm amber. Features an organic wood wick that crackles softly like an open hearth.',
     materials: [
@@ -291,10 +289,10 @@ export const lifestyleProducts: Product[] = [
     reviewsCount: 33,
     category: 'Premium Gift Sets',
     images: [
-      '/assets/arzen-suit-bag.svg'
+      'https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=800&q=80'
     ],
     colors: [
-      { name: 'Luxe Set (Gold & Black)', hex: '#C8A25D', image: '/assets/arzen-suit-bag.svg' }
+      { name: 'Luxe Set (Gold & Black)', hex: '#C8A25D', image: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=800&q=80' }
     ],
     description: 'A curated masterpiece box containing three of ARZEN\'s most iconic lifestyle elements: The Premium Pen, Suede Journal, and Bridle Leather Keychain, all custom engraved.',
     materials: [
@@ -322,10 +320,10 @@ export const lifestyleProducts: Product[] = [
     reviewsCount: 156,
     category: 'Phone Cases',
     images: [
-      '/assets/arzen-suit-bag.svg'
+      'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=800&q=80'
     ],
     colors: [
-      { name: 'Matte Black', hex: '#0B0B0B', image: '/assets/arzen-suit-bag.svg' }
+      { name: 'Matte Black', hex: '#0B0B0B', image: 'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=800&q=80' }
     ],
     description: 'Perfect MagSafe compatibility encased in robust Saffiano leather, finished with anodized golden camera bezel trim and the Arzen triangle gold foil shield.',
     materials: [
@@ -353,10 +351,10 @@ export const lifestyleProducts: Product[] = [
     reviewsCount: 94,
     category: 'Laptop Sleeves',
     images: [
-      '/assets/arzen-suit-bag.svg'
+      'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80'
     ],
     colors: [
-      { name: 'Sovereign Black', hex: '#000000', image: '/assets/arzen-suit-bag.svg' }
+      { name: 'Sovereign Black', hex: '#000000', image: 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80' }
     ],
     description: 'Extremely thin, sleek leather folder lined with shock-absorbing foam and luxury velvet to shield your notebook during executive travel.',
     materials: [
@@ -385,10 +383,10 @@ export const lifestyleProducts: Product[] = [
     reviewsCount: 50,
     category: 'Tech Organizers',
     images: [
-      '/assets/arzen-suit-bag.svg'
+      'https://images.unsplash.com/photo-1585776245991-cf89dd7fc73a?auto=format&fit=crop&w=800&q=80'
     ],
     colors: [
-      { name: 'Obsidian Black', hex: '#0B0B0B', image: '/assets/arzen-suit-bag.svg' }
+      { name: 'Obsidian Black', hex: '#0B0B0B', image: 'https://images.unsplash.com/photo-1585776245991-cf89dd7fc73a?auto=format&fit=crop&w=800&q=80' }
     ],
     description: 'Heavy structure leather utility kit, organized internally with flexible mesh compartments, secure memory card slots, and integrated golden cable anchor clips.',
     materials: [
@@ -416,10 +414,10 @@ export const lifestyleProducts: Product[] = [
     reviewsCount: 38,
     category: 'Power Banks',
     images: [
-      '/assets/arzen-backpack-built-different.svg'
+      'https://images.unsplash.com/photo-1609592424109-dd9892f1b17c?auto=format&fit=crop&w=800&q=80'
     ],
     colors: [
-      { name: 'Brushed Aurum', hex: '#C8A25D', image: '/assets/arzen-backpack-built-different.svg' }
+      { name: 'Brushed Aurum', hex: '#C8A25D', image: 'https://images.unsplash.com/photo-1609592424109-dd9892f1b17c?auto=format&fit=crop&w=800&q=80' }
     ],
     description: 'An elegant heavy metal battery pack, offering 15,000mAh capacity wrapped in brushed gold-plated casing with USB-C Power Delivery at 45W speed.',
     materials: [
@@ -446,10 +444,10 @@ export const lifestyleProducts: Product[] = [
     reviewsCount: 46,
     category: 'Wireless Chargers',
     images: [
-      '/assets/arzen-backpack-built-different.svg'
+      'https://images.unsplash.com/photo-1622445262465-2481c4574875?auto=format&fit=crop&w=800&q=80'
     ],
     colors: [
-      { name: 'Onyx Black Marble', hex: '#111111', image: '/assets/arzen-backpack-built-different.svg' }
+      { name: 'Onyx Black Marble', hex: '#111111', image: 'https://images.unsplash.com/photo-1622445262465-2481c4574875?auto=format&fit=crop&w=800&q=80' }
     ],
     description: 'Milled from a solid slab of Italian Nero Marquina black marble with a golden solid-brass rim. Powers up your devices via QI fast-charge protocol at 15W.',
     materials: [
@@ -477,10 +475,10 @@ export const lifestyleProducts: Product[] = [
     reviewsCount: 112,
     category: 'Bluetooth Speakers',
     images: [
-      '/assets/arzen-duffle.svg'
+      'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=800&q=80'
     ],
     colors: [
-      { name: 'Onyx & Gold', hex: '#1C160E', image: '/assets/arzen-duffle.svg' }
+      { name: 'Onyx & Gold', hex: '#1C160E', image: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=800&q=80' }
     ],
     description: 'Stunning portable speaker delivering warm high-fidelity acoustics. Sculpted with gold-plated metal mesh and wrapped in supple full grain black leather.',
     materials: [
@@ -509,10 +507,10 @@ export const lifestyleProducts: Product[] = [
     reviewsCount: 140,
     category: 'AirPods Cases',
     images: [
-      '/assets/arzen-duffle.svg'
+      'https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?auto=format&fit=crop&w=800&q=80'
     ],
     colors: [
-      { name: 'Cognac Gold', hex: '#B87333', image: '/assets/arzen-duffle.svg' }
+      { name: 'Cognac Gold', hex: '#B87333', image: 'https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?auto=format&fit=crop&w=800&q=80' }
     ],
     description: 'Hand-stretched French calfskin leather casing designed specifically for AirPods Pro. Finished with solid brass custom carabiner clip.',
     materials: [
@@ -539,10 +537,10 @@ export const lifestyleProducts: Product[] = [
     reviewsCount: 65,
     category: 'Travel Organizers',
     images: [
-      '/assets/arzen-duffle.svg'
+      'https://images.unsplash.com/photo-1527853787696-f7bc74f24350?auto=format&fit=crop&w=800&q=80'
     ],
     colors: [
-      { name: 'Matte Obsidian', hex: '#0B0B0B', image: '/assets/arzen-duffle.svg' }
+      { name: 'Matte Obsidian', hex: '#0B0B0B', image: 'https://images.unsplash.com/photo-1527853787696-f7bc74f24350?auto=format&fit=crop&w=800&q=80' }
     ],
     description: 'Zip-around travel planner handcrafted from robust Saffiano calfskin. Accommodates dual passports, foreign currencies, boarding cards, and features an integrated heavy gold stylus.',
     materials: [
@@ -571,10 +569,10 @@ export const lifestyleProducts: Product[] = [
     reviewsCount: 78,
     category: 'Toiletry Bags',
     images: [
-      '/assets/arzen-duffle.svg'
+      'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=800&q=80'
     ],
     colors: [
-      { name: 'Obsidian Black', hex: '#000000', image: '/assets/arzen-duffle.svg' }
+      { name: 'Obsidian Black', hex: '#000000', image: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=800&q=80' }
     ],
     description: 'Dual compartment luxury wash kit, tailored in water-resistant treated pebbled leather with a custom spill-proof interior lining.',
     materials: [
@@ -601,10 +599,10 @@ export const lifestyleProducts: Product[] = [
     reviewsCount: 52,
     category: 'Packing Cubes',
     images: [
-      '/assets/arzen-duffle.svg'
+      'https://images.unsplash.com/photo-1553531384-cc64ac80f931?auto=format&fit=crop&w=800&q=80'
     ],
     colors: [
-      { name: 'Carbon Black Set', hex: '#1E1E1E', image: '/assets/arzen-duffle.svg' }
+      { name: 'Carbon Black Set', hex: '#1E1E1E', image: 'https://images.unsplash.com/photo-1553531384-cc64ac80f931?auto=format&fit=crop&w=800&q=80' }
     ],
     description: 'Set of three ultra-lightweight water-resistant double-compressed packing vaults, designed to optimize cabinet volume inside your Arzen suitcases.',
     materials: [
@@ -631,10 +629,10 @@ export const lifestyleProducts: Product[] = [
     reviewsCount: 198,
     category: 'Keychains',
     images: [
-      '/assets/arzen-handbag-charm.svg'
+      'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=800&q=80'
     ],
     colors: [
-      { name: 'Sovereign Tan', hex: '#8B5A2B', image: '/assets/arzen-handbag-charm.svg' }
+      { name: 'Sovereign Tan', hex: '#8B5A2B', image: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=800&q=80' }
     ],
     description: 'Heavy solid milled brass trigger-snap clip combined with double-faced hand-stitched French bridle leather band.',
     materials: [
@@ -662,10 +660,10 @@ export const lifestyleProducts: Product[] = [
     reviewsCount: 120,
     category: 'Notebooks',
     images: [
-      '/assets/arzen-backpack-classic.svg'
+      'https://images.unsplash.com/photo-1531346878377-a5be20888e57?auto=format&fit=crop&w=800&q=80'
     ],
     colors: [
-      { name: 'Matte Obsidian', hex: '#0B0B0B', image: '/assets/arzen-backpack-classic.svg' }
+      { name: 'Matte Obsidian', hex: '#0B0B0B', image: 'https://images.unsplash.com/photo-1531346878377-a5be20888e57?auto=format&fit=crop&w=800&q=80' }
     ],
     description: 'Sleek luxury hardback notebook bound in double-face calfskin, with 240 sheets of high-density ivory paper featuring hand-brushed real gold leaf gilding on the page edges.',
     materials: [
@@ -693,10 +691,10 @@ export const lifestyleProducts: Product[] = [
     reviewsCount: 75,
     category: 'Journals',
     images: [
-      '/assets/arzen-backpack-pink.svg'
+      'https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=800&q=80'
     ],
     colors: [
-      { name: 'Sovereign Tan Suede', hex: '#8B5A2B', image: '/assets/arzen-backpack-pink.svg' }
+      { name: 'Sovereign Tan Suede', hex: '#8B5A2B', image: 'https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=800&q=80' }
     ],
     description: 'Unstructured, rustic luxury. A gorgeous journal wrapped in incredibly rich, double-sided Italian tan suede, bound with long leather laces that wrap around the ledger.',
     materials: [
@@ -723,10 +721,10 @@ export const lifestyleProducts: Product[] = [
     reviewsCount: 165,
     category: 'Premium Pens',
     images: [
-      '/assets/arzen-backpack-classic.svg'
+      'https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?auto=format&fit=crop&w=800&q=80'
     ],
     colors: [
-      { name: 'Polished Brass', hex: '#D4AF37', image: '/assets/arzen-backpack-classic.svg' }
+      { name: 'Polished Brass', hex: '#D4AF37', image: 'https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?auto=format&fit=crop&w=800&q=80' }
     ],
     description: 'Forged from a solid bar of marine brass, this rollerball pen offers a beautifully heavy, balanced feel in the hand. Over time, the raw brass develops a completely unique golden-brown patina.',
     materials: [
@@ -754,10 +752,10 @@ export const lifestyleProducts: Product[] = [
     reviewsCount: 42,
     category: 'Desk Accessories',
     images: [
-      '/assets/arzen-tote-elevate.svg'
+      'https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=800&q=80'
     ],
     colors: [
-      { name: 'Sovereign Tan & Gold', hex: '#8B5A2B', image: '/assets/arzen-tote-elevate.svg' }
+      { name: 'Sovereign Tan & Gold', hex: '#8B5A2B', image: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=800&q=80' }
     ],
     description: 'An executive catchall tray designed to sit on your desk or dresser. Crafted from thick saddle-stitched leather with solid brass snap corners.',
     materials: [
@@ -784,10 +782,10 @@ export const lifestyleProducts: Product[] = [
     reviewsCount: 48,
     category: 'Umbrellas',
     images: [
-      '/assets/arzen-tote-elevate.svg'
+      'https://images.unsplash.com/photo-1527786356703-4b100091cd50?auto=format&fit=crop&w=800&q=80'
     ],
     colors: [
-      { name: 'British Onyx', hex: '#111111', image: '/assets/arzen-tote-elevate.svg' }
+      { name: 'British Onyx', hex: '#111111', image: 'https://images.unsplash.com/photo-1527786356703-4b100091cd50?auto=format&fit=crop&w=800&q=80' }
     ],
     description: 'Constructed to withstand intense winds. Features a high density waterproof canopy, a continuous solid steel center shaft, and a hand-bent natural Malacca cane wood handle.',
     materials: [

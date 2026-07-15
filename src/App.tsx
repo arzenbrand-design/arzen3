@@ -576,7 +576,7 @@ export default function App() {
             {/* High end interior background overlay */}
             <div className="absolute inset-0">
               <img 
-                src="/assets/arzen-backpack-classic.svg" 
+                src="https://images.unsplash.com/photo-1547949003-9792a18a2601?auto=format&fit=crop&w=1600&q=80" 
                 alt="Luxury background interior"
                 referrerPolicy="no-referrer"
                 className="w-full h-full object-cover opacity-35 filter brightness-50" 

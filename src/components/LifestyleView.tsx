@@ -103,132 +103,132 @@ export default function LifestyleView({
   const categoryMetadata: { [key: string]: { description: string; image: string; tag: string } } = {
     'Premium Water Bottles': {
       description: 'Insulated vacuum stainless-steel cylinders encased in full-grain Italian calfskin sleeves.',
-      image: '/assets/arzen-handbag-y.svg',
+      image: 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=800&q=80',
       tag: 'Vacuum Insulated'
     },
     'Travel Bottles': {
       description: 'Scratch-proof steel travel flasks designed for high-end active transits.',
-      image: '/assets/arzen-backpack-classic.svg',
+      image: 'https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=800&q=80',
       tag: 'Aero Grade'
     },
     'Coffee Mugs': {
       description: 'Thick-walled bone china ceramic mugs trimmed in hand-brushed 24k gold leaf rims.',
-      image: '/assets/arzen-backpack-pink.svg',
+      image: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80',
       tag: '24k Gold Accents'
     },
     'Travel Mugs': {
       description: 'Leak-safe double-walled thermal traveler cups dressed in textured liquid silicone.',
-      image: '/assets/arzen-tote-vertical.svg',
+      image: 'https://images.unsplash.com/photo-1577937927133-66ef06acdf18?auto=format&fit=crop&w=800&q=80',
       tag: 'Spill Proof'
     },
     'Tumblers': {
       description: 'Double ceramic lined vacuum cold tumblers coupled with heavy brass straws.',
-      image: '/assets/arzen-tote-vertical.svg',
+      image: 'https://images.unsplash.com/photo-1563821137248-9cb943916876?auto=format&fit=crop&w=800&q=80',
       tag: 'Ceramic Shield'
     },
     'Sunglasses': {
       description: 'Japanese beta-titanium wire frames finished in triple-layer 18k gold plating.',
-      image: '/assets/arzen-handbag-chain.svg',
+      image: 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=800&q=80',
       tag: '18k Gilt'
     },
     'Blue Light Glasses': {
       description: 'Chic brass frames fitted with anti-glare filters shielding high-frequency screens.',
-      image: '/assets/arzen-handbag-chain.svg',
+      image: 'https://images.unsplash.com/photo-1574258495973-f010dfbb5371?auto=format&fit=crop&w=800&q=80',
       tag: 'Blue Block 98%'
     },
     'Perfumes': {
       description: 'Concentrated Cambodian agarwood (Oud) extracts encased in heavy crystal bottles.',
-      image: '/assets/arzen-handbag-charm.svg',
+      image: 'https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=800&q=80',
       tag: 'Oud Extract 28%'
     },
     'Candles': {
       description: 'Slow-burning coconut soy wax candles with softly crackling cherry wood wicks.',
-      image: '/assets/arzen-handbag-charm.svg',
+      image: 'https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=800&q=80',
       tag: 'Crackling Wood Wick'
     },
     'Premium Gift Sets': {
       description: 'Polished walnut boxes enclosing curated arrays of custom engraved leather treasures.',
-      image: '/assets/arzen-suit-bag.svg',
+      image: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=800&q=80',
       tag: 'Bespoke Curated'
     },
     'Phone Cases': {
       description: 'Saffiano leather covers with anodized gold camera bezels and MagSafe arrays.',
-      image: '/assets/arzen-suit-bag.svg',
+      image: 'https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&w=800&q=80',
       tag: 'Calfskin MagSafe'
     },
     'Laptop Sleeves': {
       description: 'Super-slim scratchproof leather folders lined in velvet to cushion notebooks.',
-      image: '/assets/arzen-suit-bag.svg',
+      image: 'https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?auto=format&fit=crop&w=800&q=80',
       tag: 'Saffiano Velvet'
     },
     'Tech Organizers': {
       description: 'Deep structured leather zip portfolios with modular anchors for cords and drives.',
-      image: '/assets/arzen-suit-bag.svg',
+      image: 'https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=800&q=80',
       tag: 'Prismatic Order'
     },
     'Power Banks': {
       description: 'Brushed metal 15,000mAh external cell reserves offering 45W fast Power Delivery.',
-      image: '/assets/arzen-backpack-built-different.svg',
+      image: 'https://images.unsplash.com/photo-1609592424109-dd9892f1b17c?auto=format&fit=crop&w=800&q=80',
       tag: '45W USB-C PD'
     },
     'Wireless Chargers': {
       description: 'QI chargers milled from raw Nero Marquina black marble slabs with golden rings.',
-      image: '/assets/arzen-backpack-built-different.svg',
+      image: 'https://images.unsplash.com/photo-1622445262465-2481c4574875?auto=format&fit=crop&w=800&q=80',
       tag: 'Raw Marble 15W'
     },
     'Bluetooth Speakers': {
       description: 'High-fidelity acoustic monitors with 24k gold mesh wrapped in full-grain leather.',
-      image: '/assets/arzen-duffle.svg',
+      image: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=800&q=80',
       tag: 'Artisan Acoustic'
     },
     'AirPods Cases': {
       description: 'Hand-stretched French calfskin covers equipped with heavy milled brass loops.',
-      image: '/assets/arzen-duffle.svg',
+      image: 'https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?auto=format&fit=crop&w=800&q=80',
       tag: 'Bridle Leather'
     },
     'Travel Organizers': {
       description: 'Zip-around Saffiano document planners arranging passports, cards, and visas.',
-      image: '/assets/arzen-duffle.svg',
+      image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80',
       tag: 'RFID Protected'
     },
     'Toiletry Bags': {
       description: 'Double compartment travel washbags tailored in waterproof-finished calfskin.',
-      image: '/assets/arzen-duffle.svg',
+      image: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=800&q=80',
       tag: 'Spill Resistant'
     },
     'Packing Cubes': {
       description: 'Garment compression compartments made in ultra-dense carbon micro-ripstop nylon.',
-      image: '/assets/arzen-duffle.svg',
+      image: 'https://images.unsplash.com/photo-1553531384-cc64ac80f931?auto=format&fit=crop&w=800&q=80',
       tag: 'Compression Set'
     },
     'Keychains': {
       description: 'Heavy solid milled brass trigger-snaps linked with hand-stitched bridle leather.',
-      image: '/assets/arzen-handbag-charm.svg',
+      image: 'https://images.unsplash.com/photo-1547082299-de196ea013d6?auto=format&fit=crop&w=800&q=80',
       tag: 'Milled Brass'
     },
     'Notebooks': {
       description: 'Bound calfskin hardbacks filled with ivory pages carrying hand-brushed gilt edges.',
-      image: '/assets/arzen-backpack-classic.svg',
+      image: 'https://images.unsplash.com/photo-1531346878377-a5be20888e57?auto=format&fit=crop&w=800&q=80',
       tag: 'Gilt Page Edges'
     },
     'Journals': {
       description: 'Rustic bound diaries wrapped in rich Italian tan suede with long wrap ties.',
-      image: '/assets/arzen-backpack-pink.svg',
+      image: 'https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=800&q=80',
       tag: 'Italian Suede'
     },
     'Premium Pens': {
       description: 'Heavily weighted solid milled raw brass rollerball pens that patina in your grip.',
-      image: '/assets/arzen-backpack-classic.svg',
+      image: 'https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?auto=format&fit=crop&w=800&q=80',
       tag: 'Solid Brass Core'
     },
     'Desk Accessories': {
       description: 'Snap-corner leather catchalls and pen cylinders that double-flatpack for transits.',
-      image: '/assets/arzen-tote-elevate.svg',
+      image: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=800&q=80',
       tag: 'Desk Valet'
     },
     'Umbrellas': {
       description: 'Water-repellant canopies structured over continuous solid-shaft Malacca cane handles.',
-      image: '/assets/arzen-tote-elevate.svg',
+      image: 'https://images.unsplash.com/photo-1527786356703-4b100091cd50?auto=format&fit=crop&w=800&q=80',
       tag: 'Malacca Cane'
     }
   };
