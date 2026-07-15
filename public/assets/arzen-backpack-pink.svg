@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <!-- Gold Gradient -->
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4AF37" />
+      <stop offset="25%" stop-color="#FFFDD0" />
+      <stop offset="50%" stop-color="#AA7C11" />
+      <stop offset="75%" stop-color="#FDF6C7" />
+      <stop offset="100%" stop-color="#8B6508" />
+    </linearGradient>
+    <radialGradient id="pearl" cx="30%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="60%" stop-color="#EAE5D9" />
+      <stop offset="100%" stop-color="#D0C9B5" />
+    </radialGradient>
+    <!-- Pink Leather Gradients -->
+    <linearGradient id="leather-pink" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF0F2" />
+      <stop offset="60%" stop-color="#F0C2C9" />
+      <stop offset="100%" stop-color="#DCA5AE" />
+    </linearGradient>
+    <radialGradient id="studio-bg" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="75%" stop-color="#F5EBED" />
+      <stop offset="100%" stop-color="#DFD0D3" />
+    </radialGradient>
+    <radialGradient id="bag-shadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="rgba(180,150,155,0.6)" />
+      <stop offset="100%" stop-color="rgba(180,150,155,0)" />
+    </radialGradient>
+    <pattern id="pebble-grain" width="4" height="4" patternUnits="userSpaceOnUse">
+      <rect width="4" height="4" fill="none"/>
+      <circle cx="1" cy="1" r="0.8" fill="#FFF" opacity="0.35"/>
+      <circle cx="3" cy="3" r="0.8" fill="#B48D93" opacity="0.15"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="url(#studio-bg)" />
+  <ellipse cx="400" cy="510" rx="190" ry="22" fill="url(#bag-shadow)" />
+
+  <!-- Pink Backpack Drawing -->
+  <g id="pink-backpack">
+    <!-- Top Carry Handle -->
+    <path d="M 360,160 C 360,110 440,110 440,160" fill="none" stroke="#DCA5AE" stroke-width="12" stroke-linecap="round" />
+    <path d="M 360,160 C 360,110 440,110 440,160" fill="none" stroke="url(#gold)" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="3,2" />
+
+    <!-- Main Back Body -->
+    <path d="M 280,240 C 280,180 340,150 400,150 C 460,150 520,180 520,240 L 520,450 C 520,475 500,485 470,485 L 330,485 C 300,485 280,475 280,450 Z" fill="url(#leather-pink)" stroke="#C8969F" stroke-width="1.5" />
+    <path d="M 280,240 C 280,180 340,150 400,150 C 460,150 520,180 520,240 L 520,450 C 520,475 500,485 470,485 L 330,485 C 300,485 280,475 280,450 Z" fill="url(#pebble-grain)" />
+
+    <!-- Front Zippered Flap Top (Curved arc seam) -->
+    <path d="M 280,240 Q 400,210 520,240" fill="none" stroke="url(#gold)" stroke-width="3" />
+    <path d="M 280,240 Q 400,210 520,240" fill="none" stroke="#000" stroke-width="0.8" stroke-dasharray="1.5,1.5" />
+
+    <!-- Gold zip pullers on top -->
+    <circle cx="400" cy="225" r="5" fill="url(#gold)" />
+    <rect x="397" y="225" width="6" height="15" fill="url(#gold)" rx="1" />
+
+    <!-- Front Lower Pocket (Blush pink) -->
+    <path d="M 310,320 C 310,310 320,305 335,305 L 465,305 C 480,305 490,310 490,320 L 490,455 C 490,470 480,475 465,475 L 335,475 C 320,475 310,470 310,455 Z" fill="url(#leather-pink)" stroke="#C8969F" stroke-width="1" />
+    <path d="M 310,320 C 310,310 320,305 335,305 L 465,305 C 480,305 490,310 490,320 L 490,455 C 490,470 480,475 465,475 L 335,475 C 320,475 310,470 310,455 Z" fill="url(#pebble-grain)" />
+    <!-- Fine stitch trim -->
+    <path d="M 315,325 C 315,316 323,311 335,311 L 465,311 C 477,311 485,316 485,325 L 485,450 C 485,463 477,469 465,469 L 335,469 C 323,469 315,463 315,450 Z" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-dasharray="4,2" opacity="0.6" />
+
+    <!-- Horizontal gold zipper on pocket -->
+    <line x1="310" y1="328" x2="490" y2="328" stroke="url(#gold)" stroke-width="2.5" />
+    <line x1="310" y1="328" x2="490" y2="328" stroke="#000" stroke-width="0.8" stroke-dasharray="1.5,1.5" />
+
+    <!-- Centered Gold Triangular ARZEN Emblem Clasp on Front Pocket -->
+    <g transform="translate(400, 395)">
+      <!-- Golden Triangle Base -->
+      <polygon points="0,-25 25,15 -25,15" fill="url(#gold)" stroke="#5c4308" stroke-width="1.5" />
+      <polygon points="0,-18 18,10 -18,10" fill="#FFFDD0" opacity="0.4" />
+      
+      <!-- Inside 'A' Lettering -->
+      <path d="M -5,6 L 0,-8 L 5,6" fill="none" stroke="url(#gold)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+      <line x1="-3" y1="0" x2="3" y2="0" stroke="url(#gold)" stroke-width="2" />
+    </g>
+
+    <!-- Hanging MONOGRAM Pearl & Gold Keychain from Pocket Zip (Left Side) -->
+    <g transform="translate(325, 330)">
+      <!-- Loop -->
+      <circle cx="0" cy="5" r="6" fill="none" stroke="url(#gold)" stroke-width="2" />
+      
+      <!-- Dangling strings of pearl beads -->
+      <!-- String 1 -->
+      <line x1="0" y1="11" x2="-10" y2="50" stroke="url(#gold)" stroke-width="1" />
+      <circle cx="-2.5" cy="20" r="4.5" fill="url(#pearl)" />
+      <circle cx="-5" cy="30" r="4.5" fill="url(#pearl)" />
+      <circle cx="-7.5" cy="40" r="4.5" fill="url(#pearl)" />
+      <circle cx="-10" cy="50" r="6" fill="url(#gold)" stroke="#5c4308" stroke-width="0.5" />
+
+      <!-- String 2 (Shorter, with gold medallion) -->
+      <line x1="0" y1="11" x2="10" y2="40" stroke="url(#gold)" stroke-width="1" />
+      <circle cx="3" cy="18" r="4" fill="url(#pearl)" />
+      <circle cx="6.5" cy="28" r="4" fill="url(#pearl)" />
+      <circle cx="10" cy="38" r="7" fill="url(#gold)" stroke="#5c4308" stroke-width="0.5" />
+      <!-- Letter 'A' engraved in medallion -->
+      <text x="10" y="41" font-family="'Inter', sans-serif" font-size="7" font-weight="900" fill="#000" text-anchor="middle">A</text>
+    </g>
+  </g>
+
+  <!-- Caption typography -->
+  <text x="400" y="540" font-family="'Cinzel', 'Playfair Display', serif" font-weight="bold" font-size="18" fill="#52393c" letter-spacing="6" text-anchor="middle">ARZEN AMOUR BACKPACK</text>
+  <text x="400" y="560" font-family="'Inter', sans-serif" font-size="9" fill="#916c71" letter-spacing="3" text-anchor="middle">PEBBLED BLUSH CALFSKIN / GOLD MONOGRAM PEARL CARRIER</text>
+</svg>

@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4AF37" />
+      <stop offset="25%" stop-color="#FFFDD0" />
+      <stop offset="50%" stop-color="#AA7C11" />
+      <stop offset="75%" stop-color="#FDF6C7" />
+      <stop offset="100%" stop-color="#8B6508" />
+    </linearGradient>
+    <linearGradient id="leather-black" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#333" />
+      <stop offset="50%" stop-color="#181818" />
+      <stop offset="100%" stop-color="#0a0a0a" />
+    </linearGradient>
+    <radialGradient id="studio-bg" cx="50%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#1C1C1C" />
+      <stop offset="60%" stop-color="#0E0E0E" />
+      <stop offset="100%" stop-color="#050505" />
+    </radialGradient>
+    <radialGradient id="bag-shadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="rgba(0,0,0,0.9)" />
+      <stop offset="100%" stop-color="rgba(0,0,0,0)" />
+    </radialGradient>
+    <pattern id="leather-grain" width="5" height="5" patternUnits="userSpaceOnUse">
+      <rect width="5" height="5" fill="none"/>
+      <circle cx="1" cy="1" r="0.7" fill="#000" opacity="0.35"/>
+      <circle cx="3" cy="3" r="0.7" fill="#222" opacity="0.15"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="url(#studio-bg)" />
+  <ellipse cx="400" cy="530" rx="220" ry="25" fill="url(#bag-shadow)" />
+
+  <!-- Backpack Drawing -->
+  <g id="backpack">
+    <!-- Top Carry Handle -->
+    <path d="M 360,160 C 360,110 440,110 440,160" fill="none" stroke="#111" stroke-width="12" stroke-linecap="round" />
+    <path d="M 360,160 C 360,110 440,110 440,160" fill="none" stroke="url(#gold)" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="3,2" />
+
+    <!-- Main Back Body -->
+    <path d="M 280,240 C 280,180 340,150 400,150 C 460,150 520,180 520,240 L 520,480 C 520,500 500,510 480,510 L 320,510 C 300,510 280,500 280,480 Z" fill="url(#leather-black)" stroke="#000" stroke-width="2" />
+    <path d="M 280,240 C 280,180 340,150 400,150 C 460,150 520,180 520,240 L 520,480 C 520,500 500,510 480,510 L 320,510 C 300,510 280,500 280,480 Z" fill="url(#leather-grain)" />
+
+    <!-- Top Flap -->
+    <path d="M 290,200 C 320,170 360,165 400,165 C 440,165 480,170 510,200 C 520,220 520,240 515,260 L 485,320 C 475,340 455,345 400,345 C 345,345 325,340 315,320 L 285,260 C 280,240 280,220 290,200 Z" fill="#181818" stroke="#000" stroke-width="1" />
+    <path d="M 290,200 C 320,170 360,165 400,165 C 440,165 480,170 510,200 C 520,220 520,240 515,260 L 485,320 C 475,340 455,345 400,345 C 345,345 325,340 315,320 L 285,260 C 280,240 280,220 290,200 Z" fill="url(#leather-grain)" />
+    <!-- Flap Gold Stitching -->
+    <path d="M 295,205 C 322,175 360,170 400,170 C 440,170 478,175 505,205 C 512,220 512,235 508,255 L 478,315 C 470,332 452,337 400,337 C 348,337 330,332 322,315 L 292,255 C 288,235 288,220 295,205 Z" fill="none" stroke="url(#gold)" stroke-width="1.5" stroke-dasharray="4,2" opacity="0.7" />
+
+    <!-- Two Golden Buckle Straps descending from top flap -->
+    <!-- Left Strap -->
+    <rect x="335" y="270" width="16" height="90" fill="#111" rx="2" />
+    <rect x="335" y="270" width="16" height="90" fill="url(#leather-grain)" />
+    <line x1="343" y1="270" x2="343" y2="360" stroke="url(#gold)" stroke-dasharray="3,2" opacity="0.6" />
+    <rect x="331" y="325" width="24" height="15" fill="url(#gold)" rx="2" stroke="#5c4308" stroke-width="1" />
+
+    <!-- Right Strap -->
+    <rect x="449" y="270" width="16" height="90" fill="#111" rx="2" />
+    <rect x="449" y="270" width="16" height="90" fill="url(#leather-grain)" />
+    <line x1="457" y1="270" x2="457" y2="360" stroke="url(#gold)" stroke-dasharray="3,2" opacity="0.6" />
+    <rect x="445" y="325" width="24" height="15" fill="url(#gold)" rx="2" stroke="#5c4308" stroke-width="1" />
+
+    <!-- Front Zippered Pocket (Lower Half) -->
+    <path d="M 300,380 C 300,365 315,360 330,360 L 470,360 C 485,360 500,365 500,380 L 500,480 C 500,495 485,500 470,500 L 330,500 C 315,500 300,495 300,480 Z" fill="#121212" stroke="#000" stroke-width="1" />
+    <path d="M 300,380 C 300,365 315,360 330,360 L 470,360 C 485,360 500,365 500,380 L 500,480 C 500,495 485,500 470,500 L 330,500 C 315,500 300,495 300,480 Z" fill="url(#leather-grain)" />
+    <path d="M 305,385 C 305,373 315,368 330,368 L 470,368 C 485,368 495,373 495,385 L 495,475 C 495,487 485,492 470,492 L 330,492 C 315,492 305,487 305,475 Z" fill="none" stroke="url(#gold)" stroke-width="1.5" stroke-dasharray="4,2" opacity="0.7" />
+
+    <!-- Gold Zip on Front Pocket -->
+    <line x1="315" y1="380" x2="485" y2="380" stroke="url(#gold)" stroke-width="4" />
+    <line x1="315" y1="380" x2="485" y2="380" stroke="#000" stroke-width="1" stroke-dasharray="2,2" />
+    <!-- Gold Zipper Pull -->
+    <rect x="330" y="378" width="8" height="15" fill="url(#gold)" rx="1" />
+
+    <!-- Brand Label Typographic Print on Pocket Front -->
+    <text x="400" y="425" font-family="'Cinzel', 'Playfair Display', 'Georgia', serif" font-weight="bold" font-size="28" fill="url(#gold)" letter-spacing="8" text-anchor="middle">ARZEN</text>
+    <text x="400" y="450" font-family="'Inter', sans-serif" font-weight="900" font-size="11" fill="#FFFFFF" letter-spacing="4" text-anchor="middle">BUILT DIFFERENT.</text>
+
+    <!-- Metal Rivets at lower corners -->
+    <circle cx="315" cy="485" r="4" fill="url(#gold)" stroke="#5c4308" stroke-width="0.5" />
+    <circle cx="485" cy="485" r="4" fill="url(#gold)" stroke="#5c4308" stroke-width="0.5" />
+  </g>
+
+  <!-- Title Text below -->
+  <text x="400" y="570" font-family="'Inter', sans-serif" font-weight="500" font-size="12" fill="url(#gold)" letter-spacing="6" text-anchor="middle">ARZEN EXECUTIVE BACKPACK / BUILT DIFFERENT</text>
+</svg>

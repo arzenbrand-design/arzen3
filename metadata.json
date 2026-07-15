@@ -1,0 +1,6 @@
+{
+  "name": "ARZEN",
+  "description": "ARZEN — Built Different. Premium luxury bags for men, women, professionals, and travelers. Experience exquisite design, matte black textures, and luxury gold details.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

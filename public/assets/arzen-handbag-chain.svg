@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <!-- Gold Gradient -->
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4AF37" />
+      <stop offset="25%" stop-color="#FFFDD0" />
+      <stop offset="50%" stop-color="#AA7C11" />
+      <stop offset="75%" stop-color="#FDF6C7" />
+      <stop offset="100%" stop-color="#8B6508" />
+    </linearGradient>
+    <!-- White Leather Gradients -->
+    <linearGradient id="leather-white" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="60%" stop-color="#FAFAF9" />
+      <stop offset="100%" stop-color="#ECEAE3" />
+    </linearGradient>
+    <radialGradient id="studio-bg" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="75%" stop-color="#EAE5D9" />
+      <stop offset="100%" stop-color="#DDD8CD" />
+    </radialGradient>
+    <radialGradient id="bag-shadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="rgba(142,135,120,0.55)" />
+      <stop offset="100%" stop-color="rgba(142,135,120,0)" />
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="url(#studio-bg)" />
+  <ellipse cx="400" cy="500" rx="180" ry="20" fill="url(#bag-shadow)" />
+
+  <!-- Gold Chain Strap Behind Bag -->
+  <!-- Let's draw an elegant loops of chain -->
+  <g stroke="url(#gold)" stroke-width="4" fill="none" opacity="0.9">
+    <path d="M 280,310 C 240,110 560,110 520,310" stroke-dasharray="10,6" stroke-linecap="round" />
+    <path d="M 284,310 C 244,114 564,114 524,310" stroke-dasharray="10,6" stroke-linecap="round" stroke-dashoffset="8" opacity="0.5" />
+  </g>
+
+  <!-- White Clutch Bag Body -->
+  <g id="clutch-bag">
+    <!-- Main Body rectangular flap bag -->
+    <rect x="250" y="270" width="300" height="190" rx="20" fill="url(#leather-white)" stroke="#D5CFC3" stroke-width="1.5" />
+    
+    <!-- Stitching contour -->
+    <rect x="256" y="276" width="288" height="178" rx="14" fill="none" stroke="#CFC8BC" stroke-width="1.2" stroke-dasharray="3,2" />
+
+    <!-- Triangular Envelope Front Flap -->
+    <path d="M 250,270 L 550,270 L 400,375 Z" fill="#FAF9F6" stroke="#D5CFC3" stroke-width="1.5" />
+    <!-- Flap Stitching -->
+    <path d="M 256,274 L 544,274 L 400,367 Z" fill="none" stroke="#CFC8BC" stroke-width="1" stroke-dasharray="3,2" />
+
+    <!-- Chain Strap Side Attachment Rings -->
+    <rect x="240" y="285" width="10" height="25" rx="3" fill="url(#gold)" stroke="#5c4308" stroke-width="1" />
+    <rect x="550" y="285" width="10" height="25" rx="3" fill="url(#gold)" stroke="#5c4308" stroke-width="1" />
+
+    <!-- Centered Gold Triangular ARZEN Emblem Clasp -->
+    <g transform="translate(400, 368)">
+      <!-- Golden Triangle Base -->
+      <polygon points="0,-22 22,12 -22,12" fill="url(#gold)" stroke="#5c4308" stroke-width="1.5" />
+      <polygon points="0,-16 16,8 -16,8" fill="#121212" />
+      
+      <!-- Inside 'A' Lettering -->
+      <path d="M -4,5 L 0,-6 L 4,5" fill="none" stroke="url(#gold)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+      <line x1="-2.5" y1="0" x2="2.5" y2="0" stroke="url(#gold)" stroke-width="1.8" />
+    </g>
+
+    <!-- Sleek horizontal fold seam at bottom -->
+    <line x1="255" y1="458" x2="545" y2="458" stroke="#D3C7B5" stroke-width="1.2" />
+  </g>
+
+  <!-- Typography at bottom -->
+  <text x="400" y="540" font-family="'Cinzel', 'Playfair Display', serif" font-weight="bold" font-size="18" fill="#2b261f" letter-spacing="6" text-anchor="middle">ARZEN AMOUR COUTURE</text>
+  <text x="400" y="560" font-family="'Inter', sans-serif" font-size="9" fill="#7a7060" letter-spacing="3" text-anchor="middle">ENVELOPE COUTURE / MIRROR GOLD CHAIN STRAP</text>
+</svg>

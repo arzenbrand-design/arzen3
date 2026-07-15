@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <!-- Gold gradients -->
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4AF37" />
+      <stop offset="25%" stop-color="#FFFDD0" />
+      <stop offset="50%" stop-color="#AA7C11" />
+      <stop offset="75%" stop-color="#FDF6C7" />
+      <stop offset="100%" stop-color="#8B6508" />
+    </linearGradient>
+    <linearGradient id="gold-light" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#AA7C11" />
+      <stop offset="50%" stop-color="#FFFDD0" />
+      <stop offset="100%" stop-color="#AA7C11" />
+    </linearGradient>
+    <!-- Leather gradients -->
+    <linearGradient id="leather-black" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2a2a2a" />
+      <stop offset="40%" stop-color="#141414" />
+      <stop offset="80%" stop-color="#0a0a0a" />
+      <stop offset="100%" stop-color="#050505" />
+    </linearGradient>
+    <linearGradient id="leather-side" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#222" />
+      <stop offset="50%" stop-color="#111" />
+      <stop offset="100%" stop-color="#050505" />
+    </linearGradient>
+    <radialGradient id="studio-bg" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#1F1F1F" />
+      <stop offset="60%" stop-color="#111111" />
+      <stop offset="100%" stop-color="#080808" />
+    </radialGradient>
+    <radialGradient id="bag-shadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="rgba(0,0,0,0.8)" />
+      <stop offset="100%" stop-color="rgba(0,0,0,0)" />
+    </radialGradient>
+    <!-- Leather pattern texture -->
+    <pattern id="leather-grain" width="4" height="4" patternUnits="userSpaceOnUse">
+      <rect width="4" height="4" fill="none"/>
+      <circle cx="1" cy="1" r="0.8" fill="#000" opacity="0.3"/>
+      <circle cx="3" cy="3" r="0.8" fill="#333" opacity="0.15"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="url(#studio-bg)" />
+  <ellipse cx="400" cy="510" rx="350" ry="40" fill="url(#bag-shadow)" />
+
+  <!-- Duffle Bag Main Body shadow -->
+  <g id="duffle-bag">
+    <!-- Main Cylinder -->
+    <rect x="200" y="240" width="400" height="230" rx="40" fill="url(#leather-black)" />
+    <rect x="200" y="240" width="400" height="230" rx="40" fill="url(#leather-grain)" />
+    
+    <!-- Left Endcap -->
+    <path d="M 240,240 A 115,115 0 0,0 240,470 Z" fill="url(#leather-side)" />
+    <path d="M 240,240 A 115,115 0 0,0 240,470 Z" fill="url(#leather-grain)" />
+    <!-- Endcap Gold Trim Piping -->
+    <path d="M 240,240 A 115,115 0 0,0 240,470" fill="none" stroke="url(#gold)" stroke-width="4" />
+
+    <!-- Right Endcap -->
+    <path d="M 560,240 A 115,115 0 0,1 560,470 Z" fill="url(#leather-side)" />
+    <path d="M 560,240 A 115,115 0 0,1 560,470 Z" fill="url(#leather-grain)" />
+    <!-- Endcap Gold Trim Piping -->
+    <path d="M 560,240 A 115,115 0 0,1 560,470" fill="none" stroke="url(#gold)" stroke-width="4" />
+
+    <!-- Gold Zipper Track -->
+    <line x1="240" y1="240" x2="560" y2="240" stroke="url(#gold-light)" stroke-width="6" />
+    <line x1="240" y1="240" x2="560" y2="240" stroke="#000" stroke-width="1" stroke-dasharray="2,3" />
+
+    <!-- Straps Supporting the Handles (Left & Right vertical strips) -->
+    <!-- Left vertical strap -->
+    <rect x="310" y="240" width="35" height="230" fill="#141414" stroke="#000" stroke-width="1" />
+    <rect x="310" y="240" width="35" height="230" fill="url(#leather-grain)" />
+    <rect x="310" y="240" width="35" height="230" fill="none" stroke="url(#gold)" stroke-width="1.5" stroke-dasharray="4,2" opacity="0.6" />
+    <!-- Right vertical strap -->
+    <rect x="455" y="240" width="35" height="230" fill="#141414" stroke="#000" stroke-width="1" />
+    <rect x="455" y="240" width="35" height="230" fill="url(#leather-grain)" />
+    <rect x="455" y="240" width="35" height="230" fill="none" stroke="url(#gold)" stroke-width="1.5" stroke-dasharray="4,2" opacity="0.6" />
+
+    <!-- Strap Gold Buckles/Hardware -->
+    <rect x="307" y="290" width="41" height="20" rx="3" fill="url(#gold)" stroke="#5c4308" stroke-width="1" />
+    <rect x="317" y="285" width="21" height="30" fill="none" stroke="url(#gold)" stroke-width="3" />
+    
+    <rect x="452" y="290" width="41" height="20" rx="3" fill="url(#gold)" stroke="#5c4308" stroke-width="1" />
+    <rect x="462" y="285" width="21" height="30" fill="none" stroke="url(#gold)" stroke-width="3" />
+
+    <!-- Leather Handles (Loops rising upwards) -->
+    <!-- Left Handle -->
+    <path d="M 315,290 C 270,100 380,100 340,290" fill="none" stroke="#111" stroke-width="16" stroke-linecap="round" />
+    <path d="M 315,290 C 270,100 380,100 340,290" fill="none" stroke="url(#leather-grain)" stroke-width="16" stroke-linecap="round" />
+    <path d="M 315,290 C 270,100 380,100 340,290" fill="none" stroke="url(#gold)" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="5,2" opacity="0.8" />
+    
+    <!-- Right Handle -->
+    <path d="M 460,290 C 420,100 530,100 485,290" fill="none" stroke="#111" stroke-width="16" stroke-linecap="round" />
+    <path d="M 460,290 C 420,100 530,100 485,290" fill="none" stroke="url(#leather-grain)" stroke-width="16" stroke-linecap="round" />
+    <path d="M 460,290 C 420,100 530,100 485,290" fill="none" stroke="url(#gold)" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="5,2" opacity="0.8" />
+
+    <!-- Centered Gold ARZEN Triangular Logo Shield -->
+    <g transform="translate(400, 360)">
+      <!-- Golden Triangle Base -->
+      <polygon points="0,-45 45,30 -45,30" fill="url(#gold)" stroke="#5c4308" stroke-width="2" />
+      <polygon points="0,-40 38,25 -38,25" fill="#0c0c0c" />
+      
+      <!-- Inside Gold Lettering -->
+      <polygon points="0,-32 28,18 -28,18" fill="none" stroke="url(#gold)" stroke-width="1.5" />
+      <!-- Letter "A" stylized -->
+      <path d="M -8,10 L 0,-12 L 8,10" fill="none" stroke="url(#gold)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+      <line x1="-5" y1="2" x2="5" y2="2" stroke="url(#gold)" stroke-width="3" />
+      <circle cx="0" cy="11" r="2.5" fill="url(#gold)" />
+    </g>
+
+    <!-- Side Pocket and Zipper Accents -->
+    <path d="M 260,280 L 260,430" stroke="#000" stroke-width="2" />
+    <path d="M 260,280 L 260,430" stroke="url(#gold)" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.4" />
+
+    <path d="M 540,280 L 540,430" stroke="#000" stroke-width="2" />
+    <path d="M 540,280 L 540,430" stroke="url(#gold)" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.4" />
+  </g>
+
+  <!-- Typography at bottom for lookbook/gallery feeling -->
+  <text x="400" y="560" font-family="'Inter', sans-serif" font-weight="600" font-size="20" fill="url(#gold)" letter-spacing="8" text-anchor="middle">ARZEN</text>
+  <text x="400" y="580" font-family="'JetBrains Mono', monospace" font-size="10" fill="#888" letter-spacing="4" text-anchor="middle">SIGNATURE DUFFLE / BLACK &amp; GOLD</text>
+</svg>

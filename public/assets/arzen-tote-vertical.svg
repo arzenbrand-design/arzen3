@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <!-- Gold Gradient -->
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4AF37" />
+      <stop offset="25%" stop-color="#FFFDD0" />
+      <stop offset="50%" stop-color="#AA7C11" />
+      <stop offset="75%" stop-color="#FDF6C7" />
+      <stop offset="100%" stop-color="#8B6508" />
+    </linearGradient>
+    <!-- Black Leather Gradients -->
+    <linearGradient id="leather-black" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2a2a2a" />
+      <stop offset="50%" stop-color="#141414" />
+      <stop offset="100%" stop-color="#050505" />
+    </linearGradient>
+    <radialGradient id="studio-bg" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#1D1D1D" />
+      <stop offset="70%" stop-color="#0B0B0B" />
+      <stop offset="100%" stop-color="#030303" />
+    </radialGradient>
+    <radialGradient id="bag-shadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="rgba(0,0,0,0.85)" />
+      <stop offset="100%" stop-color="rgba(0,0,0,0)" />
+    </radialGradient>
+    <pattern id="saffiano-grain" width="4" height="4" patternUnits="userSpaceOnUse">
+      <rect width="4" height="4" fill="none"/>
+      <circle cx="1" cy="1" r="0.7" fill="#000" opacity="0.3"/>
+      <circle cx="3" cy="3" r="0.7" fill="#222" opacity="0.15"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="url(#studio-bg)" />
+  <ellipse cx="400" cy="510" rx="160" ry="18" fill="url(#bag-shadow)" />
+
+  <!-- Vertical Tote Drawing -->
+  <g id="vertical-tote">
+    <!-- Long, Slender Shoulder Straps (Ascending high) -->
+    <path d="M 330,230 C 330,40 470,40 470,230" fill="none" stroke="#121212" stroke-width="6" stroke-linecap="round" />
+    <path d="M 330,230 C 330,40 470,40 470,230" fill="none" stroke="url(#gold)" stroke-width="1.2" stroke-dasharray="3,2" opacity="0.5" />
+
+    <!-- Vertical Tote Rectangular Body -->
+    <rect x="290" y="210" width="220" height="280" rx="20" fill="url(#leather-black)" stroke="#000" stroke-width="1.5" />
+    <rect x="290" y="210" width="220" height="280" rx="20" fill="url(#saffiano-grain)" />
+
+    <!-- Gold Stitch Trim -->
+    <rect x="297" y="217" width="206" height="266" rx="14" fill="none" stroke="url(#gold)" stroke-width="1.2" stroke-dasharray="4,2" opacity="0.6" />
+
+    <!-- Strap Anchor Rivets -->
+    <circle cx="330" cy="245" r="4" fill="url(#gold)" stroke="#5c4308" stroke-width="0.5" />
+    <circle cx="470" cy="245" r="4" fill="url(#gold)" stroke="#5c4308" stroke-width="0.5" />
+
+    <!-- Discrete Elegant Gold Triangular Brand Seal at Top Center -->
+    <g transform="translate(400, 275) scale(0.8)">
+      <!-- Golden Triangle -->
+      <polygon points="0,-18 18,12 -18,12" fill="url(#gold)" stroke="#5c4308" stroke-width="1" />
+      <polygon points="0,-13 13,8 -13,8" fill="#121212" />
+      <circle cx="0" cy="1" r="2.5" fill="url(#gold)" />
+    </g>
+
+    <!-- Hot gold pressed serif brand label -->
+    <text x="400" y="325" font-family="'Cinzel', 'Playfair Display', serif" font-weight="900" font-size="16" fill="url(#gold)" letter-spacing="6" text-anchor="middle">ARZEN</text>
+    <text x="400" y="342" font-family="'Inter', sans-serif" font-size="7" fill="#FFF" letter-spacing="3" text-anchor="middle">BUILT DIFFERENT</text>
+
+    <!-- Side expansion piping -->
+    <path d="M 290,210 L 290,490" fill="none" stroke="url(#gold)" stroke-width="2.2" opacity="0.4" />
+    <path d="M 510,210 L 510,490" fill="none" stroke="url(#gold)" stroke-width="2.2" opacity="0.4" />
+  </g>
+
+  <!-- Typography underneath -->
+  <text x="400" y="550" font-family="'Inter', sans-serif" font-weight="500" font-size="11" fill="url(#gold)" letter-spacing="6" text-anchor="middle">ARZEN MINIMAL VERTICAL TOTE</text>
+  <text x="400" y="570" font-family="'JetBrains Mono', monospace" font-size="8.5" fill="#777" letter-spacing="4" text-anchor="middle">MATTE OBSIDIAN BLACK CALFSKIN / RAW GOLD EMBOSS</text>
+</svg>

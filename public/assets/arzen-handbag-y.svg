@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <!-- Gold Gradient -->
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4AF37" />
+      <stop offset="25%" stop-color="#FFFDD0" />
+      <stop offset="50%" stop-color="#AA7C11" />
+      <stop offset="75%" stop-color="#FDF6C7" />
+      <stop offset="100%" stop-color="#8B6508" />
+    </linearGradient>
+    <!-- White Leather Gradients -->
+    <linearGradient id="leather-white" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="60%" stop-color="#F9F8F6" />
+      <stop offset="100%" stop-color="#ECE8E1" />
+    </linearGradient>
+    <radialGradient id="studio-bg" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="75%" stop-color="#EAE5D9" />
+      <stop offset="100%" stop-color="#D8D1C0" />
+    </radialGradient>
+    <radialGradient id="bag-shadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="rgba(142,135,120,0.55)" />
+      <stop offset="100%" stop-color="rgba(142,135,120,0)" />
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="url(#studio-bg)" />
+  <ellipse cx="400" cy="500" rx="190" ry="22" fill="url(#bag-shadow)" />
+
+  <!-- White Handbag with Y Strap Buckle -->
+  <g id="handbag-y">
+    <!-- Curved Strap -->
+    <path d="M 270,300 C 270,120 530,120 530,300" fill="none" stroke="#ECE8E1" stroke-width="14" />
+    <path d="M 270,300 C 270,120 530,120 530,300" fill="none" stroke="#FFFFFF" stroke-width="12" />
+    <path d="M 270,300 C 270,120 530,120 530,300" fill="none" stroke="#D3C7B5" stroke-width="1" stroke-dasharray="4,2" />
+
+    <!-- Crescent Curved Bag Body -->
+    <path d="M 230,280 Q 400,240 570,280 C 600,320 600,430 550,450 Q 400,470 250,450 C 200,430 200,320 230,280 Z" fill="url(#leather-white)" stroke="#D5CFC3" stroke-width="1.5" />
+    
+    <!-- Fine luxury stitching -->
+    <path d="M 236,288 Q 400,250 564,288 C 588,324 588,422 544,441 Q 400,460 256,441 C 212,422 212,324 236,288 Z" fill="none" stroke="#CFC8BC" stroke-width="1" stroke-dasharray="3,2" />
+
+    <!-- Gold 'Y' Ornament Connectors at Strap Bases -->
+    <!-- Left Connector -->
+    <g transform="translate(265, 280) rotate(-15)">
+      <path d="M -15,-25 L 15,-25 L 0,0 L 0,25" fill="none" stroke="url(#gold)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+      <circle cx="0" cy="25" r="5" fill="url(#gold)" />
+      <circle cx="-15" cy="-25" r="4" fill="url(#gold)" />
+      <circle cx="15" cy="-25" r="4" fill="url(#gold)" />
+    </g>
+
+    <!-- Right Connector -->
+    <g transform="translate(535, 280) rotate(15)">
+      <path d="M -15,-25 L 15,-25 L 0,0 L 0,25" fill="none" stroke="url(#gold)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+      <circle cx="0" cy="25" r="5" fill="url(#gold)" />
+      <circle cx="-15" cy="-25" r="4" fill="url(#gold)" />
+      <circle cx="15" cy="-25" r="4" fill="url(#gold)" />
+    </g>
+
+    <!-- Minimal Gold Triangular ARZEN Front Flap Emblem -->
+    <g transform="translate(400, 345)">
+      <polygon points="0,-18 18,12 -18,12" fill="url(#gold)" stroke="#5c4308" stroke-width="1" />
+      <circle cx="0" cy="3" r="3.5" fill="#FFF" opacity="0.8" />
+    </g>
+
+    <!-- Gold Accent Zip Line under Flap -->
+    <path d="M 310,290 Q 400,270 490,290" fill="none" stroke="url(#gold)" stroke-width="2.5" />
+    <path d="M 310,290 Q 400,270 490,290" fill="none" stroke="#000" stroke-width="0.8" stroke-dasharray="1.5,1.5" />
+  </g>
+
+  <!-- Typography underneath -->
+  <text x="400" y="540" font-family="'Cinzel', 'Playfair Display', serif" font-weight="bold" font-size="18" fill="#2b261f" letter-spacing="6" text-anchor="middle">ARZEN SOVEREIGN CRESCENT</text>
+  <text x="400" y="560" font-family="'Inter', sans-serif" font-size="9" fill="#7a7060" letter-spacing="3" text-anchor="middle">CRESCENT BODY / BRUSHED GOLD Y-HARDWARE</text>
+</svg>

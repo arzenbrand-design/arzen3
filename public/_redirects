@@ -1,0 +1,8 @@
+# Cloudflare Pages Redirects configuration for ARZEN Single Page Application
+# Explicitly map known SPA routes to prevent Wrangler infinite loop validation errors
+/shop /index.html 200
+/lifestyle /index.html 200
+/about /index.html 200
+/contact /index.html 200
+/admin /index.html 200
+/product-detail /index.html 200
