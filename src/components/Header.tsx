@@ -268,7 +268,7 @@ export default function Header({
       <nav className="w-full bg-[#0B0B0B]/80 backdrop-blur-md sticky top-0 border-b border-[#C8A25D]/15 px-4 sm:px-8 py-3 flex items-center justify-between transition-all duration-300 z-50">
         
         {/* Left Side: Mobile Menu Trigger / ARZEN Logo on desktop (slightly larger) */}
-        <div className="flex items-center space-x-4 md:w-1/4">
+        <div className="flex items-center space-x-4 md:w-auto flex-shrink-0">
           <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
             className="md:hidden text-[#C8A25D] hover:text-white transition-colors focus:outline-none cursor-pointer p-1"
@@ -277,7 +277,7 @@ export default function Header({
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
           
-          <div className="hidden md:flex items-center" onClick={() => handleNavClick('home')} id="arzen-logo-home">
+          <div className="hidden md:flex items-center cursor-pointer md:pr-10 lg:pr-12 md:mr-2" onClick={() => handleNavClick('home')} id="arzen-logo-home">
             <ARZENLogo scale={1.2} />
           </div>
           {/* Logo on mobile centered/left */}
@@ -287,7 +287,7 @@ export default function Header({
         </div>
 
         {/* Center: Center-aligned Navigation Links (Desktop Only) */}
-        <div className="hidden md:flex flex-grow justify-center items-center space-x-10 text-[11px] tracking-[0.2em] uppercase font-medium md:w-2/4">
+        <div className="hidden md:flex flex-grow justify-center items-center space-x-4 lg:space-x-6 xl:space-x-9 text-[10px] lg:text-[11px] tracking-[0.1em] lg:tracking-[0.18em] xl:tracking-[0.25em] uppercase font-medium md:w-auto px-2">
           <button 
             onClick={() => handleNavClick('home')} 
             className={`relative pb-1 cursor-pointer transition-all duration-300 hover:text-[#C8A25D] after:absolute after:bottom-0 after:left-0 after:h-[1.5px] after:w-full after:bg-[#C8A25D] after:transition-transform after:duration-300 ${currentView === 'home' ? 'text-[#C8A25D] after:scale-x-100' : 'text-white/70 after:scale-x-0 hover:after:scale-x-100'}`}
@@ -372,7 +372,7 @@ export default function Header({
         </div>
 
         {/* Right Side: Action Icons */}
-        <div className="flex items-center justify-end space-x-5 md:w-1/4 text-white">
+        <div className="flex items-center justify-end space-x-4 lg:space-x-5 md:w-auto flex-shrink-0 text-white">
           <button 
             onClick={onOpenSearch} 
             className="hover:text-[#C8A25D] transition-colors p-1 focus:outline-none cursor-pointer"
