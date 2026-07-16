@@ -320,6 +320,7 @@ export default function App() {
         onOpenAccount={() => setAccountOpen(true)}
         currency={currency}
         setCurrency={setCurrency}
+        onSelectCategory={activeCategoryFilter}
       />
 
       {/* VIEW 1: HOME PAGE */}
@@ -328,75 +329,122 @@ export default function App() {
           
           <div className="relative z-10">
             {/* Full Screen (100vh) Cinematic Hero Section */}
-            <section className="relative w-full h-[100vh] min-h-[600px] px-4 sm:px-8 overflow-hidden flex items-center justify-start border-b border-[#C8A25D]/15">
-              {/* Full-screen Background Image */}
-              <div className="absolute inset-0 z-0">
-                <img 
-                  src={settings.heroBannerImage || "/assets/arzen-duffle.svg"} 
-                  alt="ARZEN Luxury Campaign Background"
-                  referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover object-[center_35%] filter brightness-[0.70] contrast-[1.05]" 
-                />
-                {/* Luxury gradient overlay for maximum readability and high-contrast text backing */}
-                <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/55 to-transparent" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
-              </div>
+            {settings.heroSectionEnabled !== false && (() => {
+              const textPosition = settings.heroTextPosition || 'left';
+              const textPosClass = 
+                textPosition === 'center' ? 'text-center mx-auto items-center' : 
+                textPosition === 'right' ? 'text-right ml-auto mr-0 items-end' : 
+                'text-left mr-auto ml-0 items-start';
+              
+              const alignClass = 
+                textPosition === 'center' ? 'justify-center' : 
+                textPosition === 'right' ? 'justify-end' : 
+                'justify-start';
 
-              {/* Content Container */}
-              <div className="max-w-7xl mx-auto w-full relative z-10 animate-fade-in-up">
-                <div className="max-w-xl sm:max-w-2xl space-y-8 text-left">
-                  <div className="inline-flex items-center space-x-2 bg-[#C8A25D]/15 border border-[#C8A25D]/35 px-4 py-2 rounded-full">
-                    <span className="inline-block w-2 h-2 rounded-full bg-[#C8A25D] animate-ping" />
-                    <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-[#C8A25D] font-bold">
-                      {settings.heroSubtitle || "THE HOUSE OF ARZEN"}
-                    </span>
+              const heroImageDesktop = settings.heroBannerImage || "/assets/arzen-duffle.svg";
+              const heroImageMobile = settings.heroBannerImageMobile || heroImageDesktop;
+              
+              const overlayDarkness = settings.heroOverlayDarkness ?? 55;
+              const showOverlay = settings.heroShowOverlay ?? true;
+
+              const handleHeroNavigation = (link: string) => {
+                if (!link) return;
+                const views = ['home', 'shop', 'about', 'contact', 'admin', 'lifestyle', 'tracking', 'account'];
+                if (views.includes(link)) {
+                  handleSetView(link as any);
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                  const element = document.getElementById(link) || document.getElementById(link.replace('#', ''));
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                  } else {
+                    handleSetView('shop');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }
+                }
+              };
+
+              return (
+                <section className={`relative w-full h-[100vh] min-h-[600px] px-4 sm:px-8 overflow-hidden flex items-center ${alignClass} border-b border-[#C8A25D]/15`}>
+                  {/* Full-screen Background Image with desktop/mobile switching and custom zoom & focal point */}
+                  <div className="absolute inset-0 z-0 overflow-hidden">
+                    <picture className="w-full h-full">
+                      <source media="(max-w: 768px)" srcSet={heroImageMobile} />
+                      <img 
+                        src={heroImageDesktop} 
+                        alt={settings.heroImageAltText || "ARZEN Luxury Campaign Background"}
+                        title={settings.heroImageTitle || "ARZEN Campaign"}
+                        loading={settings.heroImageLazyLoading ? "lazy" : "eager"}
+                        referrerPolicy="no-referrer"
+                        style={{
+                          transform: `scale(${1 + ((settings.heroImageZoom || 100) - 100) / 100})`,
+                          objectPosition: `${settings.heroImageFocalPointX ?? 50}% ${settings.heroImageFocalPointY ?? 35}%`,
+                        }}
+                        className="w-full h-full object-cover transition-all duration-500" 
+                      />
+                    </picture>
+                    {/* Dynamic dark overlay */}
+                    {showOverlay && (
+                      <div 
+                        className="absolute inset-0 transition-opacity duration-300 z-1" 
+                        style={{
+                          backgroundColor: `rgba(0, 0, 0, ${overlayDarkness / 100})`,
+                        }}
+                      />
+                    )}
+                    {/* Extra luxury gradient overlay for text protection */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30 pointer-events-none z-1" />
                   </div>
 
-                  <div className="space-y-4">
-                    <h1 className="text-5xl sm:text-6xl lg:text-[76px] font-serif font-light tracking-tight text-white leading-[1.05] uppercase">
-                      {settings.heroTitle ? (
-                        <span>{settings.heroTitle}</span>
-                      ) : (
-                        <>
-                          A Legacy of <br />
-                          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FCEECB] via-[#C8A25D] to-[#A37E3E] font-medium italic">
-                            Distinction
-                          </span>
-                        </>
-                      )}
-                    </h1>
-                    <p className="text-[11.5px] font-mono tracking-[0.35em] text-[#C8A25D]/90 uppercase font-bold">
-                      {settings.heroTagline || "BUILT DIFFERENT"}
-                    </p>
-                  </div>
+                  {/* Content Container */}
+                  <div className="max-w-7xl mx-auto w-full relative z-10 animate-fade-in-up">
+                    <div className={`max-w-xl sm:max-w-2xl flex flex-col space-y-8 ${textPosClass}`}>
+                      <div className="inline-flex items-center space-x-2 bg-[#C8A25D]/15 border border-[#C8A25D]/35 px-4 py-2 rounded-full">
+                        <span className="inline-block w-2 h-2 rounded-full bg-[#C8A25D] animate-ping" />
+                        <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-[#C8A25D] font-bold">
+                          {settings.heroSubtitle || "THE HOUSE OF ARZEN"}
+                        </span>
+                      </div>
 
-                  <p className="text-sm sm:text-base text-white/80 leading-relaxed font-sans font-light max-w-lg">
-                    Every ARZEN bag represents a masterclass in architectural balance. Tailored by hand from French vegetable-tanned hides, enriched with solid brass hardware, and built to survive generations in effortless grace.
-                  </p>
+                      <div className="space-y-4">
+                        <h1 className="text-5xl sm:text-6xl lg:text-[76px] font-serif font-light tracking-tight text-white leading-[1.05] uppercase">
+                          {settings.heroTitle || "A Legacy of Distinction"}
+                        </h1>
+                        <p className="text-[11.5px] font-mono tracking-[0.35em] text-[#C8A25D]/90 uppercase font-bold">
+                          {settings.heroTagline || "BUILT DIFFERENT"}
+                        </p>
+                      </div>
 
-                  {/* Primary CTA Buttons */}
-                  <div className="flex flex-col sm:flex-row items-center gap-4 pt-4">
-                    <button
-                      onClick={() => activeCategoryFilter('All')}
-                      className="w-full sm:w-auto px-8 py-4 bg-[#C8A25D] hover:bg-white text-[#0B0B0B] text-xs font-bold tracking-widest uppercase transition-all duration-300 rounded-xs flex items-center justify-center space-x-2 focus:outline-none cursor-pointer group shadow-lg hover:shadow-[#C8A25D]/15"
-                      id="hero-explore-collection"
-                    >
-                      <span>Explore Masterpieces</span>
-                      <ChevronRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-                    </button>
-                    <button
-                      onClick={() => {
-                        const element = document.getElementById('best-sellers-section');
-                        element?.scrollIntoView({ behavior: 'smooth' });
-                      }}
-                      className="w-full sm:w-auto px-8 py-4 bg-transparent hover:bg-white/5 text-white border border-[#C8A25D]/40 hover:border-white text-xs font-bold tracking-widest uppercase transition-colors duration-300 rounded-xs focus:outline-none cursor-pointer"
-                    >
-                      Shop Best Sellers
-                    </button>
+                      <p className="text-sm sm:text-base text-white/80 leading-relaxed font-sans font-light max-w-lg">
+                        {settings.heroDescription || 'Every ARZEN bag represents a masterclass in architectural balance. Tailored by hand from French vegetable-tanned hides, enriched with solid brass hardware, and built to survive generations in effortless grace.'}
+                      </p>
+
+                      {/* Primary CTA Buttons */}
+                      <div className={`flex flex-col sm:flex-row items-center gap-4 pt-4 w-full sm:w-auto ${
+                        textPosition === 'center' ? 'justify-center' : 
+                        textPosition === 'right' ? 'justify-end' : 
+                        'justify-start'
+                      }`}>
+                        <button
+                          onClick={() => handleHeroNavigation(settings.heroButtonLink || 'shop')}
+                          className="w-full sm:w-auto px-8 py-4 bg-[#C8A25D] hover:bg-white text-[#0B0B0B] text-xs font-bold tracking-widest uppercase transition-all duration-300 rounded-xs flex items-center justify-center space-x-2 focus:outline-none cursor-pointer group shadow-lg hover:shadow-[#C8A25D]/15"
+                          id="hero-explore-collection"
+                        >
+                          <span>{settings.heroButtonText || "Explore Masterpieces"}</span>
+                          <ChevronRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                        </button>
+                        <button
+                          onClick={() => handleHeroNavigation(settings.heroButtonLinkSecondary || 'best-sellers-section')}
+                          className="w-full sm:w-auto px-8 py-4 bg-transparent hover:bg-white/5 text-white border border-[#C8A25D]/40 hover:border-white text-xs font-bold tracking-widest uppercase transition-colors duration-300 rounded-xs focus:outline-none cursor-pointer"
+                        >
+                          {settings.heroButtonTextSecondary || "Shop Best Sellers"}
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </section>
+                </section>
+              );
+            })()}
 
           {/* Trust Badges Bar */}
           <section className="w-full bg-black/45 backdrop-blur-md border-b border-[#C8A25D]/10 py-10 px-4 sm:px-8">
@@ -432,64 +480,6 @@ export default function App() {
                   <h4 className="text-[11px] font-mono tracking-wider text-white font-bold uppercase">SECURE PAYMENT</h4>
                   <p className="text-[10px] text-white/50 font-light mt-0.5 leading-snug">100% encrypted bank vault gateway</p>
                 </div>
-              </div>
-
-            </div>
-          </section>
-
-          {/* Shop By Category Section (Premium Collections) */}
-          <section className="w-full py-24 sm:py-28 px-4 sm:px-8 border-b border-[#C8A25D]/10 bg-transparent relative">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#C8A25D]/5 rounded-full blur-[130px] pointer-events-none" />
-            
-            <div className="max-w-7xl mx-auto space-y-14 relative z-10">
-              
-              {/* Header */}
-              <div className="text-center max-w-xl mx-auto space-y-3 select-none">
-                <span className="text-[9px] font-mono tracking-[0.3em] text-[#C8A25D] uppercase block font-semibold">
-                  SELECT EXQUISITE LINES
-                </span>
-                <h2 className="text-3xl md:text-4xl font-serif font-light text-white tracking-wide uppercase">
-                  Shop By <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FCEECB] via-[#C8A25D] to-[#A37E3E] font-medium italic">Category</span>
-                </h2>
-                <div className="w-12 h-[1px] bg-[#C8A25D] mx-auto my-3" />
-                <p className="text-xs text-white/50 font-light leading-relaxed">
-                  Explore our curated lines of bespoke leather goods and high-profile lifestyle accessories, each crafted to redefine daily luxury.
-                </p>
-              </div>
-
-              {/* Category Icons Grid */}
-              <div className="grid grid-cols-3 md:grid-cols-9 gap-4 sm:gap-6">
-                {[
-                  { name: 'Bags', icon: ShoppingBag, desc: 'Silhouettes' },
-                  { name: 'Wallets', icon: CreditCard, desc: 'Essentials' },
-                  { name: 'Sunglasses', icon: Glasses, desc: 'Eyewear' },
-                  { name: 'Perfumes', icon: Sparkles, desc: 'Scents' },
-                  { name: 'Water Bottles', icon: GlassWater, desc: 'Hydration' },
-                  { name: 'Accessories', icon: Gem, desc: 'Bespoke' },
-                  { name: 'Travel Essentials', icon: Compass, desc: 'Voyage' },
-                  { name: 'Lifestyle', icon: Crown, desc: 'Living' },
-                  { name: 'Gift Collection', icon: Gift, desc: 'Unboxing' },
-                ].map((cat) => {
-                  const IconComponent = cat.icon;
-                  return (
-                    <button
-                      key={cat.name}
-                      onClick={() => activeCategoryFilter(cat.name)}
-                      className="group flex flex-col items-center p-5 bg-gradient-to-b from-[#131313] to-[#0A0A0A] border border-[#C8A25D]/15 hover:border-[#C8A25D]/60 rounded-xs transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(200,162,93,0.18)] cursor-pointer focus:outline-none"
-                    >
-                      {/* Icon Container with gold circle glow */}
-                      <div className="w-11 h-11 rounded-full bg-[#0E0E0E] border border-[#C8A25D]/20 group-hover:border-[#C8A25D] flex items-center justify-center transition-all duration-500 group-hover:shadow-[0_0_12px_rgba(200,162,93,0.3)] mb-4">
-                        <IconComponent className="w-4.5 h-4.5 text-[#C8A25D] transition-transform duration-500 group-hover:scale-110" />
-                      </div>
-                      <span className="text-[10px] font-sans font-medium tracking-[0.15em] text-white uppercase text-center block leading-tight">
-                        {cat.name}
-                      </span>
-                      <span className="text-[8px] font-mono tracking-widest text-[#C8A25D]/60 uppercase block mt-1">
-                        {cat.desc}
-                      </span>
-                    </button>
-                  );
-                })}
               </div>
 
             </div>

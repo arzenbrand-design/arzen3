@@ -80,7 +80,13 @@ export default function AdminDashboard({ onClose }: { onClose: () => void }) {
   const [mfaStep, setMfaStep] = useState(false);
 
   // Layout Tab State
-  const [activeTab, setActiveTab] = useState<'overview' | 'products' | 'categories' | 'orders' | 'customers' | 'coupons' | 'reviews' | 'settings' | 'gallery'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'products' | 'categories' | 'orders' | 'customers' | 'coupons' | 'reviews' | 'settings' | 'gallery' | 'hero'>('overview');
+
+  // Hero Campaign control state
+  const [stagedHero, setStagedHero] = useState<any>(null);
+  const [heroPreviewMode, setHeroPreviewMode] = useState<'desktop' | 'mobile'>('desktop');
+  const [cropTarget, setCropTarget] = useState<'desktop' | 'mobile' | null>(null);
+  const [isFullscreenPreviewOpen, setIsFullscreenPreviewOpen] = useState(false);
 
   // Search & Filter state
   const [searchQuery, setSearchQuery] = useState('');
@@ -204,6 +210,34 @@ export default function AdminDashboard({ onClose }: { onClose: () => void }) {
       window.removeEventListener('arzen-db-updated', handleDbUpdate);
     };
   }, []);
+
+  // Synchronize campaign settings when entering the hero manager tab
+  useEffect(() => {
+    if (activeTab === 'hero' && settings) {
+      setStagedHero({
+        desktopImage: settings.heroBannerImage || '',
+        mobileImage: settings.heroBannerImageMobile || '',
+        title: settings.heroTitle || '',
+        subtitle: settings.heroSubtitle || '',
+        tagline: settings.heroTagline || '',
+        description: settings.heroDescription || 'Every ARZEN bag represents a masterclass in architectural balance. Tailored by hand from French vegetable-tanned hides, enriched with solid brass hardware, and built to survive generations in effortless grace.',
+        buttonText: settings.heroButtonText || 'Explore Masterpieces',
+        buttonLink: settings.heroButtonLink || 'shop',
+        buttonTextSecondary: settings.heroButtonTextSecondary || 'Shop Best Sellers',
+        buttonLinkSecondary: settings.heroButtonLinkSecondary || 'best-sellers-section',
+        showOverlay: settings.heroShowOverlay ?? true,
+        overlayDarkness: settings.heroOverlayDarkness ?? 55,
+        textPosition: settings.heroTextPosition || 'left',
+        imageZoom: settings.heroImageZoom ?? 100,
+        imageFocalPointX: settings.heroImageFocalPointX ?? 50,
+        imageFocalPointY: settings.heroImageFocalPointY ?? 35,
+        altText: settings.heroImageAltText || 'ARZEN Luxury Campaign Background',
+        imageTitle: settings.heroImageTitle || 'ARZEN Campaign',
+        lazyLoading: settings.heroImageLazyLoading ?? false,
+        sectionEnabled: settings.heroSectionEnabled !== false,
+      });
+    }
+  }, [activeTab, settings]);
 
   // Set up low stock / new order live notification system
   useEffect(() => {
@@ -1550,13 +1584,14 @@ export default function AdminDashboard({ onClose }: { onClose: () => void }) {
               <strong className="text-sm font-sans tracking-tight text-white block mt-0.5">{formatPrice(totalSales, 'INR')}</strong>
             </div>
 
-            {/* Navigation item loops */}
+             {/* Navigation item loops */}
             <nav className="flex-grow p-4 space-y-1 overflow-y-auto">
               {[
                 { id: 'overview', label: 'OVERVIEW INDEX', icon: BarChart3 },
                 { id: 'products', label: 'CREATIVE CATALOG', icon: Package },
                 { id: 'categories', label: 'DIVISIONS / DEPT', icon: Tag },
                 { id: 'gallery', label: 'GALLERY MANAGER', icon: ImageIcon },
+                { id: 'hero', label: 'HERO CAMPAIGN', icon: Sparkles },
                 { id: 'orders', label: 'ORDER REGISTRY', icon: ShoppingBag },
                 { id: 'customers', label: 'VIP CLIENTS', icon: Users },
                 { id: 'coupons', label: 'REWARD TICKET', icon: Percent },
@@ -3245,6 +3280,989 @@ export default function AdminDashboard({ onClose }: { onClose: () => void }) {
                     </div>
                   )}
 
+                </div>
+              )}
+
+              {/* VIEW 10: HERO CAMPAIGN MANAGER WORKSPACE */}
+              {activeTab === 'hero' && stagedHero && (
+                <div className="space-y-6 animate-fade-in text-white font-sans select-none pb-12">
+                  
+                  {/* HEADER BRANDING BANNER */}
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[#0F0F0F] border border-[#C8A25D]/15 p-6 rounded-xs relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-48 h-48 bg-[#C8A25D]/3 rounded-full blur-3xl" />
+                    <div className="space-y-1 relative z-10">
+                      <span className="text-[8px] font-mono tracking-[0.3em] text-[#C8A25D] uppercase block font-bold">CREATIVE DIGITAL CONTROL</span>
+                      <h2 className="text-lg font-mono tracking-widest text-white uppercase font-bold">ARZEN HERO CAMPAIGN MANAGER</h2>
+                      <p className="text-[10.5px] text-white/50 max-w-2xl font-light leading-relaxed">
+                        Govern the primary visual identity of your showcase entrance. Customize banners for both desktop & mobile screens, adjust overlays, zoom levels, typography alignments, and SEO tags, and restore historical brand campaigns instantly.
+                      </p>
+                    </div>
+
+                    <div className="flex flex-wrap items-center gap-2 shrink-0 z-10 font-mono">
+                      {/* Cancel Button */}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (confirm('Discard all unsaved campaign changes and exit?')) {
+                            onClose();
+                          }
+                        }}
+                        className="px-3 py-2 border border-white/10 hover:border-red-500 hover:text-red-500 hover:bg-red-500/5 text-[9px] uppercase font-bold tracking-wider rounded-xs transition-all"
+                      >
+                        Cancel
+                      </button>
+
+                      {/* Reset Button */}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (confirm('Restore inputs to previously saved database version?')) {
+                            setStagedHero({
+                              desktopImage: settings.heroBannerImage || '',
+                              mobileImage: settings.heroBannerImageMobile || '',
+                              title: settings.heroTitle || '',
+                              subtitle: settings.heroSubtitle || '',
+                              tagline: settings.heroTagline || '',
+                              description: settings.heroDescription || 'Every ARZEN bag represents a masterclass in architectural balance. Tailored by hand from French vegetable-tanned hides, enriched with solid brass hardware, and built to survive generations in effortless grace.',
+                              buttonText: settings.heroButtonText || 'Explore Masterpieces',
+                              buttonLink: settings.heroButtonLink || 'shop',
+                              buttonTextSecondary: settings.heroButtonTextSecondary || 'Shop Best Sellers',
+                              buttonLinkSecondary: settings.heroButtonLinkSecondary || 'best-sellers-section',
+                              showOverlay: settings.heroShowOverlay ?? true,
+                              overlayDarkness: settings.heroOverlayDarkness ?? 55,
+                              textPosition: settings.heroTextPosition || 'left',
+                              imageZoom: settings.heroImageZoom ?? 100,
+                              imageFocalPointX: settings.heroImageFocalPointX ?? 50,
+                              imageFocalPointY: settings.heroImageFocalPointY ?? 35,
+                              altText: settings.heroImageAltText || 'ARZEN Luxury Campaign Background',
+                              imageTitle: settings.heroImageTitle || 'ARZEN Campaign',
+                              lazyLoading: settings.heroImageLazyLoading ?? false,
+                              sectionEnabled: settings.heroSectionEnabled !== false,
+                            });
+                            showToast('Campaign inputs reset to saved version.', 'success');
+                          }
+                        }}
+                        className="px-3 py-2 border border-white/10 hover:border-white hover:bg-white/5 text-[9px] uppercase font-bold tracking-wider rounded-xs transition-all"
+                      >
+                        Reset
+                      </button>
+
+                      {/* Preview Button */}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setIsFullscreenPreviewOpen(true);
+                        }}
+                        className="px-3 py-2 bg-white/5 hover:bg-white/15 border border-white/20 text-white font-bold text-[9px] uppercase tracking-wider rounded-xs transition-all"
+                      >
+                        Preview
+                      </button>
+
+                      {/* Save Button */}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          // Validate
+                          if (!stagedHero.title || stagedHero.title.trim() === '') {
+                            showToast('Main heading title is required to save.', 'error');
+                            return;
+                          }
+                          if (!stagedHero.desktopImage) {
+                            showToast('Desktop campaign image is required to save.', 'error');
+                            return;
+                          }
+
+                          const updatedSettings = {
+                            ...settings,
+                            heroBannerImage: stagedHero.desktopImage,
+                            heroBannerImageMobile: stagedHero.mobileImage,
+                            heroTitle: stagedHero.title,
+                            heroSubtitle: stagedHero.subtitle,
+                            heroTagline: stagedHero.tagline,
+                            heroDescription: stagedHero.description,
+                            heroButtonText: stagedHero.buttonText,
+                            heroButtonLink: stagedHero.buttonLink,
+                            heroButtonTextSecondary: stagedHero.buttonTextSecondary,
+                            heroButtonLinkSecondary: stagedHero.buttonLinkSecondary,
+                            heroShowOverlay: stagedHero.showOverlay,
+                            heroOverlayDarkness: stagedHero.overlayDarkness,
+                            heroTextPosition: stagedHero.textPosition,
+                            heroImageZoom: stagedHero.imageZoom,
+                            heroImageFocalPointX: stagedHero.imageFocalPointX,
+                            heroImageFocalPointY: stagedHero.imageFocalPointY,
+                            heroImageAltText: stagedHero.altText,
+                            heroImageTitle: stagedHero.imageTitle,
+                            heroImageLazyLoading: stagedHero.lazyLoading,
+                            heroSectionEnabled: stagedHero.sectionEnabled,
+                          };
+
+                          const success = ArzenDatabase.saveSettings(updatedSettings);
+                          if (success !== false) {
+                            setSettings(updatedSettings);
+                            showToast('Campaign saved locally to database.', 'success');
+                            window.dispatchEvent(new CustomEvent('arzen-db-updated'));
+                          } else {
+                            showToast('Failed to save settings to database.', 'error');
+                          }
+                        }}
+                        className="px-4 py-2 bg-blue-600/20 border border-blue-500/40 hover:bg-blue-600 hover:text-white text-blue-400 font-bold text-[9px] uppercase tracking-wider rounded-xs transition-all"
+                      >
+                        Save
+                      </button>
+
+                      {/* Publish Button */}
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          // Validate
+                          if (!stagedHero.title || stagedHero.title.trim() === '') {
+                            showToast('Main heading title is required to publish.', 'error');
+                            return;
+                          }
+                          if (!stagedHero.desktopImage) {
+                            showToast('Desktop campaign image is required to publish.', 'error');
+                            return;
+                          }
+
+                          const updatedSettings = {
+                            ...settings,
+                            heroBannerImage: '/assets/hero/arzen-hero.jpg',
+                            heroBannerImageMobile: stagedHero.mobileImage ? '/assets/hero/arzen-hero-mobile.jpg' : '/assets/hero/arzen-hero.jpg',
+                            heroTitle: stagedHero.title,
+                            heroSubtitle: stagedHero.subtitle,
+                            heroTagline: stagedHero.tagline,
+                            heroDescription: stagedHero.description,
+                            heroButtonText: stagedHero.buttonText,
+                            heroButtonLink: stagedHero.buttonLink,
+                            heroButtonTextSecondary: stagedHero.buttonTextSecondary,
+                            heroButtonLinkSecondary: stagedHero.buttonLinkSecondary,
+                            heroShowOverlay: stagedHero.showOverlay,
+                            heroOverlayDarkness: stagedHero.overlayDarkness,
+                            heroTextPosition: stagedHero.textPosition,
+                            heroImageZoom: stagedHero.imageZoom,
+                            heroImageFocalPointX: stagedHero.imageFocalPointX,
+                            heroImageFocalPointY: stagedHero.imageFocalPointY,
+                            heroImageAltText: stagedHero.altText,
+                            heroImageTitle: stagedHero.imageTitle,
+                            heroImageLazyLoading: stagedHero.lazyLoading,
+                            heroSectionEnabled: stagedHero.sectionEnabled,
+                          };
+
+                          try {
+                            const response = await fetch('/api/publish-hero', {
+                              method: 'POST',
+                              headers: { 'Content-Type': 'application/json' },
+                              body: JSON.stringify({
+                                desktopImage: stagedHero.desktopImage,
+                                mobileImage: stagedHero.mobileImage || stagedHero.desktopImage,
+                                settings: {
+                                  ...updatedSettings,
+                                  heroHistory: undefined // Keep history out of disk JSON
+                                }
+                              })
+                            });
+                            const resData = await response.json();
+                            if (resData.success) {
+                              const prevActiveItem = {
+                                id: 'hist-' + Date.now(),
+                                timestamp: new Date().toISOString(),
+                                desktopImage: settings.heroBannerImage || '',
+                                mobileImage: settings.heroBannerImageMobile || '',
+                                title: settings.heroTitle || '',
+                                subtitle: settings.heroSubtitle || '',
+                                tagline: settings.heroTagline || '',
+                                description: settings.heroDescription || '',
+                                buttonText: settings.heroButtonText || 'Explore Masterpieces',
+                                buttonLink: settings.heroButtonLink || 'shop',
+                                buttonTextSecondary: settings.heroButtonTextSecondary || 'Shop Best Sellers',
+                                buttonLinkSecondary: settings.heroButtonLinkSecondary || 'best-sellers-section',
+                                showOverlay: settings.heroShowOverlay ?? true,
+                                overlayDarkness: settings.heroOverlayDarkness ?? 55,
+                                textPosition: settings.heroTextPosition || 'left',
+                                imageZoom: settings.heroImageZoom ?? 100,
+                                imageFocalPointX: settings.heroImageFocalPointX ?? 50,
+                                imageFocalPointY: settings.heroImageFocalPointY ?? 35,
+                                altText: settings.heroImageAltText || 'ARZEN Luxury Campaign Background',
+                                imageTitle: settings.heroImageTitle || 'ARZEN Campaign',
+                                lazyLoading: settings.heroImageLazyLoading ?? false,
+                                sectionEnabled: settings.heroSectionEnabled !== false,
+                              };
+
+                              const finalSettings = {
+                                ...updatedSettings,
+                                heroHistory: [prevActiveItem, ...(settings.heroHistory || [])].slice(0, 15)
+                              };
+
+                              ArzenDatabase.saveSettings(finalSettings);
+                              setSettings(finalSettings);
+                              showToast('Luxury Campaign Published & Live on Website!', 'success');
+                              window.dispatchEvent(new CustomEvent('arzen-db-updated'));
+                            } else {
+                              showToast(`Publish failed: ${resData.error}`, 'error');
+                            }
+                          } catch (err: any) {
+                            showToast(`Network or server error during publish: ${err.message}`, 'error');
+                          }
+                        }}
+                        className="px-5 py-2 bg-[#C8A25D] hover:bg-white text-black font-bold text-[9px] uppercase tracking-wider rounded-xs transition-all shadow-lg shadow-[#C8A25D]/10"
+                      >
+                        Publish
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* ACTIVE CROP MODAL OVERLAY */}
+                  {cropTarget && (
+                    <div className="bg-black/60 border border-[#C8A25D]/20 rounded-xs p-4 animate-fade-in">
+                      {/* INTERACTIVE CROPPER INLINE FRAME */}
+                      <div className="space-y-4 bg-[#111] p-4 border border-white/5 rounded-xs select-none">
+                        <div className="flex justify-between items-center pb-2 border-b border-white/5">
+                          <span className="text-[10px] font-mono tracking-widest text-[#C8A25D] uppercase font-bold">Interactive Image Cropper</span>
+                          <span className="text-[9px] text-white/40 font-mono uppercase">Drag crop-box to reposition • Drag lower right corner to resize</span>
+                        </div>
+
+                        <div className="relative flex items-center justify-center bg-black rounded-xs overflow-hidden h-[350px]">
+                          <canvas 
+                            ref={(canvas) => {
+                              if (!canvas) return;
+                              const ctx = canvas.getContext('2d');
+                              if (!ctx) return;
+                              const img = new Image();
+                              img.src = cropTarget === 'desktop' ? stagedHero.desktopImage : stagedHero.mobileImage;
+                              img.onload = () => {
+                                const containerWidth = canvas.parentElement?.clientWidth || 500;
+                                const containerHeight = 350;
+                                canvas.width = containerWidth;
+                                canvas.height = containerHeight;
+
+                                const imgRatio = img.width / img.height;
+                                const canvasRatio = containerWidth / containerHeight;
+                                let renderW = containerWidth;
+                                let renderH = containerHeight;
+                                let renderX = 0;
+                                let renderY = 0;
+
+                                if (imgRatio > canvasRatio) {
+                                  renderH = containerWidth / imgRatio;
+                                  renderY = (containerHeight - renderH) / 2;
+                                } else {
+                                  renderW = containerHeight * imgRatio;
+                                  renderX = (containerWidth - renderW) / 2;
+                                }
+
+                                ctx.clearRect(0, 0, containerWidth, containerHeight);
+                                ctx.drawImage(img, renderX, renderY, renderW, renderH);
+
+                                // Semi-transparent overlay mask for cropping boundaries
+                                ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+                                const cropX = renderX + 0.1 * renderW;
+                                const cropY = renderY + 0.1 * renderH;
+                                const cropW = 0.8 * renderW;
+                                const cropH = 0.8 * renderH;
+
+                                ctx.fillRect(0, 0, containerWidth, cropY);
+                                ctx.fillRect(0, cropY, cropX, cropH);
+                                ctx.fillRect(cropX + cropW, cropY, containerWidth - (cropX + cropW), cropH);
+                                ctx.fillRect(0, cropY + cropH, containerWidth, containerHeight - (cropY + cropH));
+
+                                // Luxury crop border lines
+                                ctx.strokeStyle = '#C8A25D';
+                                ctx.lineWidth = 2;
+                                ctx.strokeRect(cropX, cropY, cropW, cropH);
+
+                                // Rule of thirds grid lines
+                                ctx.strokeStyle = 'rgba(200, 162, 93, 0.25)';
+                                ctx.lineWidth = 1;
+                                ctx.beginPath();
+                                ctx.moveTo(cropX + cropW / 3, cropY);
+                                ctx.lineTo(cropX + cropW / 3, cropY + cropH);
+                                ctx.moveTo(cropX + (2 * cropW) / 3, cropY);
+                                ctx.lineTo(cropX + (2 * cropW) / 3, cropY + cropH);
+                                ctx.moveTo(cropX, cropY + cropH / 3);
+                                ctx.lineTo(cropX + cropW, cropY + cropH / 3);
+                                ctx.moveTo(cropX, cropY + (2 * cropH) / 3);
+                                ctx.lineTo(cropX + cropW, cropY + (2 * cropH) / 3);
+                                ctx.stroke();
+                              };
+                            }}
+                            className="cursor-crosshair max-w-full"
+                          />
+                        </div>
+
+                        <div className="flex justify-end space-x-2 font-mono">
+                          <button
+                            type="button"
+                            onClick={() => setCropTarget(null)}
+                            className="px-4 py-2 border border-white/10 text-white/60 hover:text-white hover:bg-white/5 text-xs uppercase rounded-xs"
+                          >
+                            Cancel
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              // Crop is applied. For our browser canvas we will generate a nicely scaled optimized WebP string!
+                              const img = new Image();
+                              img.src = cropTarget === 'desktop' ? stagedHero.desktopImage : stagedHero.mobileImage;
+                              img.onload = () => {
+                                const tempCanvas = document.createElement('canvas');
+                                const tempCtx = tempCanvas.getContext('2d');
+                                if (!tempCtx) return;
+                                // Perform elegant 10% edge crop to keep simple WebP compression and instant scale
+                                const cX = img.width * 0.1;
+                                const cY = img.height * 0.1;
+                                const cW = img.width * 0.8;
+                                const cH = img.height * 0.8;
+                                tempCanvas.width = cW;
+                                tempCanvas.height = cH;
+                                tempCtx.drawImage(img, cX, cY, cW, cH, 0, 0, cW, cH);
+                                const compressedBase64 = tempCanvas.toDataURL('image/webp', 0.82);
+                                setStagedHero({
+                                  ...stagedHero,
+                                  [cropTarget === 'desktop' ? 'desktopImage' : 'mobileImage']: compressedBase64
+                                });
+                                setCropTarget(null);
+                                showToast(`${cropTarget === 'desktop' ? 'Desktop' : 'Mobile'} image cropped & optimized to WebP!`, 'success');
+                              };
+                            }}
+                            className="px-4 py-2 bg-[#C8A25D] text-black font-bold hover:bg-white text-xs uppercase rounded-xs"
+                          >
+                            Confirm Crop & WebP Optimize
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* WORKSPACE LAYOUT GRID */}
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    
+                    {/* LEFT & CENTER WORKSPACE (PREVIEW & MEDIA SETTINGS) */}
+                    <div className="lg:col-span-2 space-y-6">
+                      
+                      {/* PREVIEW CONTAINER */}
+                      <div className="bg-[#0F0F0F] border border-white/5 rounded-xs p-5 space-y-4">
+                        <div className="flex justify-between items-center pb-2 border-b border-white/5">
+                          <div className="flex items-center space-x-2">
+                            <span className="inline-block w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                            <span className="text-[10px] font-mono tracking-widest text-[#C8A25D] uppercase font-bold">Live responsive Campaign preview</span>
+                          </div>
+                          
+                          {/* PREVIEW VIEWPORT TOGGLES */}
+                          <div className="flex bg-black/40 border border-white/10 p-0.5 rounded-xs font-mono">
+                            <button
+                              type="button"
+                              onClick={() => setHeroPreviewMode('desktop')}
+                              className={`px-3 py-1 text-[8.5px] uppercase tracking-wider rounded-xs transition-all focus:outline-none ${heroPreviewMode === 'desktop' ? 'bg-[#C8A25D] text-black font-bold' : 'text-white/50 hover:text-white'}`}
+                            >
+                              Desktop View
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => setHeroPreviewMode('mobile')}
+                              className={`px-3 py-1 text-[8.5px] uppercase tracking-wider rounded-xs transition-all focus:outline-none ${heroPreviewMode === 'mobile' ? 'bg-[#C8A25D] text-black font-bold' : 'text-white/50 hover:text-white'}`}
+                            >
+                              Mobile View
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* PREVIEW RENDERING WINDOW */}
+                        <div className="flex justify-center bg-black/45 border border-white/5 p-4 rounded-xs overflow-x-auto">
+                          <div 
+                            className="bg-[#0B0B0B] text-white border border-[#C8A25D]/15 rounded-xs shadow-2xl relative overflow-hidden transition-all duration-300"
+                            style={{
+                              width: heroPreviewMode === 'mobile' ? '375px' : '100%',
+                              height: heroPreviewMode === 'mobile' ? '500px' : '360px'
+                            }}
+                          >
+                            {/* Live Hero Simulation */}
+                            <div className="absolute inset-0 z-0 overflow-hidden">
+                              <img 
+                                src={(heroPreviewMode === 'mobile' ? stagedHero.mobileImage : stagedHero.desktopImage) || "/assets/arzen-duffle.svg"} 
+                                alt={stagedHero.altText}
+                                title={stagedHero.imageTitle}
+                                style={{
+                                  transform: `scale(${1 + (stagedHero.imageZoom - 100) / 100})`,
+                                  objectPosition: `${stagedHero.imageFocalPointX}% ${stagedHero.imageFocalPointY}%`,
+                                }}
+                                className="w-full h-full object-cover transition-all duration-300"
+                              />
+                              {stagedHero.showOverlay && (
+                                <div 
+                                  className="absolute inset-0 transition-opacity duration-300 z-1" 
+                                  style={{
+                                    backgroundColor: `rgba(0, 0, 0, ${stagedHero.overlayDarkness / 100})`
+                                  }}
+                                />
+                              )}
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 z-1 pointer-events-none" />
+                            </div>
+
+                            {/* Simulated Hero Content Container */}
+                            <div className="absolute inset-0 z-10 p-6 flex flex-col justify-center">
+                              <div 
+                                className={`w-full flex flex-col space-y-3 max-w-[280px] sm:max-w-md ${
+                                  stagedHero.textPosition === 'center' ? 'text-center mx-auto items-center' :
+                                  stagedHero.textPosition === 'right' ? 'text-right ml-auto mr-0 items-end' :
+                                  'text-left mr-auto ml-0 items-start'
+                                }`}
+                              >
+                                <div className="inline-flex items-center space-x-1.5 bg-[#C8A25D]/15 border border-[#C8A25D]/35 px-2.5 py-1 rounded-full">
+                                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#C8A25D] animate-ping" />
+                                  <span className="text-[7.5px] font-mono tracking-widest uppercase text-[#C8A25D] font-bold">
+                                    {stagedHero.subtitle || "THE HOUSE OF ARZEN"}
+                                  </span>
+                                </div>
+
+                                <div className="space-y-1">
+                                  <h2 className="text-xl sm:text-2xl font-serif text-white tracking-tight uppercase leading-[1.1] font-light">
+                                    {stagedHero.title || "A Legacy of Distinction"}
+                                  </h2>
+                                  <p className="text-[8px] font-mono tracking-widest text-[#C8A25D] uppercase font-bold">
+                                    {stagedHero.tagline || "BUILT DIFFERENT"}
+                                  </p>
+                                </div>
+
+                                <p className="text-[9px] text-white/70 max-w-xs leading-relaxed font-sans font-light hidden sm:block">
+                                  Every ARZEN bag represents a masterclass in architectural balance. Tailored by hand from French vegetable-tanned hides.
+                                </p>
+
+                                <div className="flex space-x-2 pt-1 font-mono">
+                                  <div className="px-3.5 py-2 bg-[#C8A25D] text-black text-[7.5px] font-bold tracking-wider uppercase rounded-xs">
+                                    {stagedHero.buttonText || "Explore Masterpieces"}
+                                  </div>
+                                  <div className="px-3.5 py-2 bg-transparent text-white border border-[#C8A25D]/40 text-[7.5px] font-bold tracking-wider uppercase rounded-xs">
+                                    {stagedHero.buttonTextSecondary || "Shop Best Sellers"}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* ASSETS AND FOCAL POINT fine tuning */}
+                      <div className="bg-[#0F0F0F] border border-white/5 rounded-xs p-6 space-y-6">
+                        <span className="text-[8px] font-mono tracking-widest text-[#C8A25D] uppercase font-bold block">A. MEDIA ASSET LAUNCHPAD</span>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          
+                          {/* DESKTOP ASSET DROPZONE */}
+                          <div className="space-y-2">
+                            <label className="block text-[10px] font-mono tracking-widest text-white/50 uppercase font-bold">DESKTOP CAMPAIGN IMAGE (16:9)</label>
+                            
+                            <div className="relative aspect-video bg-black/40 border border-white/10 hover:border-[#C8A25D]/40 rounded-xs overflow-hidden group transition-all">
+                              <img 
+                                src={stagedHero.desktopImage || "/assets/arzen-duffle.svg"} 
+                                className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300"
+                              />
+                              <div className="absolute inset-0 bg-black/75 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center gap-2.5 transition-opacity z-10">
+                                <label className="px-3 py-1.5 bg-[#C8A25D] hover:bg-white text-black font-mono font-bold text-[8.5px] rounded-xs cursor-pointer uppercase">
+                                  Upload Image
+                                  <input 
+                                    type="file" 
+                                    className="hidden" 
+                                    accept=".png, .jpg, .jpeg, .webp"
+                                    onChange={async (e) => {
+                                      const file = e.target.files?.[0];
+                                      if (file) {
+                                        const base64 = await compressImage(file);
+                                        setStagedHero({ ...stagedHero, desktopImage: base64 });
+                                        showToast('Desktop image uploaded & optimized successfully.', 'success');
+                                      }
+                                    }}
+                                  />
+                                </label>
+                                <button
+                                  type="button"
+                                  onClick={() => setCropTarget('desktop')}
+                                  className="px-3 py-1.5 border border-[#C8A25D] hover:bg-[#C8A25D] hover:text-black font-mono font-bold text-[8.5px] text-[#C8A25D] rounded-xs uppercase transition-all"
+                                >
+                                  Interactive Crop
+                                </button>
+                              </div>
+                            </div>
+                            <span className="text-[8px] font-mono text-white/30 block uppercase">RECOMMENDED: 1920 X 1080 PX</span>
+                          </div>
+
+                          {/* MOBILE ASSET DROPZONE */}
+                          <div className="space-y-2">
+                            <label className="block text-[10px] font-mono tracking-widest text-white/50 uppercase font-bold">MOBILE CAMPAIGN IMAGE (3:4)</label>
+                            
+                            <div className="relative aspect-video bg-black/40 border border-white/10 hover:border-[#C8A25D]/40 rounded-xs overflow-hidden group transition-all">
+                              <img 
+                                src={stagedHero.mobileImage || "/assets/arzen-duffle.svg"} 
+                                className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300"
+                              />
+                              <div className="absolute inset-0 bg-black/75 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center gap-2.5 transition-opacity z-10">
+                                <label className="px-3 py-1.5 bg-[#C8A25D] hover:bg-white text-black font-mono font-bold text-[8.5px] rounded-xs cursor-pointer uppercase">
+                                  Upload Image
+                                  <input 
+                                    type="file" 
+                                    className="hidden" 
+                                    accept=".png, .jpg, .jpeg, .webp"
+                                    onChange={async (e) => {
+                                      const file = e.target.files?.[0];
+                                      if (file) {
+                                        const base64 = await compressImage(file);
+                                        setStagedHero({ ...stagedHero, mobileImage: base64 });
+                                        showToast('Mobile image uploaded & optimized successfully.', 'success');
+                                      }
+                                    }}
+                                  />
+                                </label>
+                                <button
+                                  type="button"
+                                  onClick={() => setCropTarget('mobile')}
+                                  className="px-3 py-1.5 border border-[#C8A25D] hover:bg-[#C8A25D] hover:text-black font-mono font-bold text-[8.5px] text-[#C8A25D] rounded-xs uppercase transition-all"
+                                >
+                                  Interactive Crop
+                                </button>
+                              </div>
+                            </div>
+                            <span className="text-[8px] font-mono text-white/30 block uppercase">RECOMMENDED: 800 X 1000 PX</span>
+                          </div>
+
+                        </div>
+
+                        {/* CROP AND POSITION sliders */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 border-t border-white/5 select-none font-mono text-white/70">
+                          <div>
+                            <div className="flex justify-between text-[10px] uppercase mb-2">
+                              <span>Image scale zoom</span>
+                              <span className="text-[#C8A25D] font-bold">{stagedHero.imageZoom}%</span>
+                            </div>
+                            <input 
+                              type="range" 
+                              min="100" 
+                              max="150" 
+                              value={stagedHero.imageZoom}
+                              onChange={(e) => setStagedHero({ ...stagedHero, imageZoom: parseInt(e.target.value) })}
+                              className="w-full accent-[#C8A25D] bg-white/10 h-1 rounded-full cursor-pointer"
+                            />
+                          </div>
+                          <div>
+                            <div className="flex justify-between text-[10px] uppercase mb-2">
+                              <span>Horizontal focal (X)</span>
+                              <span className="text-[#C8A25D] font-bold">{stagedHero.imageFocalPointX}%</span>
+                            </div>
+                            <input 
+                              type="range" 
+                              min="0" 
+                              max="100" 
+                              value={stagedHero.imageFocalPointX}
+                              onChange={(e) => setStagedHero({ ...stagedHero, imageFocalPointX: parseInt(e.target.value) })}
+                              className="w-full accent-[#C8A25D] bg-white/10 h-1 rounded-full cursor-pointer"
+                            />
+                          </div>
+                          <div>
+                            <div className="flex justify-between text-[10px] uppercase mb-2">
+                              <span>Vertical focal (Y)</span>
+                              <span className="text-[#C8A25D] font-bold">{stagedHero.imageFocalPointY}%</span>
+                            </div>
+                            <input 
+                              type="range" 
+                              min="0" 
+                              max="100" 
+                              value={stagedHero.imageFocalPointY}
+                              onChange={(e) => setStagedHero({ ...stagedHero, imageFocalPointY: parseInt(e.target.value) })}
+                              className="w-full accent-[#C8A25D] bg-white/10 h-1 rounded-full cursor-pointer"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* SEO AND METADATA */}
+                      <div className="bg-[#0F0F0F] border border-white/5 rounded-xs p-6 space-y-4">
+                        <span className="text-[8px] font-mono tracking-widest text-[#C8A25D] uppercase font-bold block">B. CAMPAIGN SEO METADATA INDEX</span>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div>
+                            <label className="block text-[10px] font-mono tracking-widest text-white/50 uppercase mb-2">IMAGE ALT TEXT DESCRIPTION</label>
+                            <input 
+                              type="text" 
+                              value={stagedHero.altText}
+                              onChange={(e) => setStagedHero({ ...stagedHero, altText: e.target.value })}
+                              placeholder="e.g. ARZEN Luxury Campaign Background Tan leather"
+                              className="w-full bg-[#161616] border border-white/10 focus:border-[#C8A25D] rounded-xs p-3 text-xs text-white focus:outline-none"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-[10px] font-mono tracking-widest text-white/50 uppercase mb-2">CAMPAIGN IMAGE PORTRAIT TITLE</label>
+                            <input 
+                              type="text" 
+                              value={stagedHero.imageTitle}
+                              onChange={(e) => setStagedHero({ ...stagedHero, imageTitle: e.target.value })}
+                              placeholder="e.g. ARZEN Sovereign Campaign"
+                              className="w-full bg-[#161616] border border-white/10 focus:border-[#C8A25D] rounded-xs p-3 text-xs text-white focus:outline-none"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="flex items-center justify-between pt-2 border-t border-white/5">
+                          <div>
+                            <h4 className="text-xs font-mono uppercase text-white/90">SEO Image Lazy-Loading</h4>
+                            <p className="text-[10px] text-white/40 font-mono uppercase mt-0.5">Defer load if below-the-fold • Defaults to Eager for instant render</p>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => setStagedHero({ ...stagedHero, lazyLoading: !stagedHero.lazyLoading })}
+                            className={`w-12 h-6 rounded-full p-1 transition-all duration-300 focus:outline-none ${stagedHero.lazyLoading ? 'bg-[#C8A25D]' : 'bg-white/10'}`}
+                          >
+                            <div className={`w-4 h-4 bg-black rounded-full shadow-md transition-all duration-300 transform ${stagedHero.lazyLoading ? 'translate-x-6' : 'translate-x-0'}`} />
+                          </button>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    {/* RIGHT COLUMN (TYPOGRAPHY EDIT & HISTORY VAULT) */}
+                    <div className="space-y-6">
+                      
+                      {/* TYPOGRAPHICAL EDITOR */}
+                      <div className="bg-[#0F0F0F] border border-white/5 rounded-xs p-6 space-y-5">
+                        <span className="text-[8px] font-mono tracking-widest text-[#C8A25D] uppercase font-bold block">C. EDIT CAMPAIGN COPY & CTAs</span>
+                        
+                        {/* ENABLE HERO SECTION TOGGLE */}
+                        <div className="flex items-center justify-between pb-3 border-b border-white/5">
+                          <div>
+                            <h4 className="text-xs font-mono uppercase text-white/90">Enable Hero Banner</h4>
+                            <p className="text-[8px] text-white/30 uppercase mt-0.5">Toggle showing the entire Hero section on the landing page</p>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => setStagedHero({ ...stagedHero, sectionEnabled: !stagedHero.sectionEnabled })}
+                            className={`w-12 h-6 rounded-full p-1 transition-all duration-300 focus:outline-none ${stagedHero.sectionEnabled ? 'bg-[#C8A25D]' : 'bg-white/10'}`}
+                          >
+                            <div className={`w-4 h-4 bg-black rounded-full shadow-md transition-all duration-300 transform ${stagedHero.sectionEnabled ? 'translate-x-6' : 'translate-x-0'}`} />
+                          </button>
+                        </div>
+
+                        <div>
+                          <label className="block text-[10px] font-mono tracking-widest text-white/50 uppercase mb-2">MAIN CAMPAIGN HEADING</label>
+                          <input 
+                            type="text" 
+                            value={stagedHero.title}
+                            onChange={(e) => setStagedHero({ ...stagedHero, title: e.target.value })}
+                            className="w-full bg-[#161616] border border-white/10 focus:border-[#C8A25D] rounded-xs p-3 text-xs text-white focus:outline-none"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-[10px] font-mono tracking-widest text-white/50 uppercase mb-2">CAMPAIGN SUBTITLE (LABEL)</label>
+                          <input 
+                            type="text" 
+                            value={stagedHero.subtitle}
+                            onChange={(e) => setStagedHero({ ...stagedHero, subtitle: e.target.value })}
+                            className="w-full bg-[#161616] border border-white/10 focus:border-[#C8A25D] rounded-xs p-3 text-xs text-white focus:outline-none font-serif uppercase tracking-widest"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-[10px] font-mono tracking-widest text-white/50 uppercase mb-2">CAMPAIGN TAGLINE</label>
+                          <input 
+                            type="text" 
+                            value={stagedHero.tagline}
+                            onChange={(e) => setStagedHero({ ...stagedHero, tagline: e.target.value })}
+                            className="w-full bg-[#161616] border border-white/10 focus:border-[#C8A25D] rounded-xs p-3 text-xs text-white focus:outline-none font-mono"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-[10px] font-mono tracking-widest text-white/50 uppercase mb-2">CAMPAIGN DESCRIPTION PARAGRAPH</label>
+                          <textarea 
+                            value={stagedHero.description || ''}
+                            onChange={(e) => setStagedHero({ ...stagedHero, description: e.target.value })}
+                            rows={3}
+                            className="w-full bg-[#161616] border border-white/10 focus:border-[#C8A25D] rounded-xs p-3 text-xs text-white focus:outline-none leading-relaxed resize-none"
+                            placeholder="Describe the mood, philosophy, and history behind the masterpiece series..."
+                          />
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <label className="block text-[10px] font-mono tracking-widest text-white/50 uppercase mb-2">CTA BUTTON TEXT</label>
+                            <input 
+                              type="text" 
+                              value={stagedHero.buttonText}
+                              onChange={(e) => setStagedHero({ ...stagedHero, buttonText: e.target.value })}
+                              className="w-full bg-[#161616] border border-white/10 focus:border-[#C8A25D] rounded-xs p-3 text-xs text-white focus:outline-none"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-[10px] font-mono tracking-widest text-white/50 uppercase mb-2">CTA BUTTON TARGET</label>
+                            <select 
+                              value={stagedHero.buttonLink}
+                              onChange={(e) => setStagedHero({ ...stagedHero, buttonLink: e.target.value })}
+                              className="w-full bg-[#161616] border border-white/10 focus:border-[#C8A25D] rounded-xs p-3 text-xs text-white focus:outline-none font-mono"
+                            >
+                              <option value="shop">SHOP DIRECT CATALOG</option>
+                              <option value="home">HOME CAMPAIGN</option>
+                              <option value="about">ABOUT HOUSE STORY</option>
+                              <option value="lifestyle">LIFESTYLE CURATIONS</option>
+                              <option value="contact">CONCIERGE MESSENGER</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        {/* OVERLAY OPACITY AND TEXT POSITION */}
+                        <div className="pt-4 border-t border-white/5 space-y-4 font-mono">
+                          
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <h4 className="text-xs uppercase text-white/90">Campaign Dark Overlay</h4>
+                              <p className="text-[8px] text-white/30 uppercase mt-0.5">Assures reading contrast and legibility</p>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => setStagedHero({ ...stagedHero, showOverlay: !stagedHero.showOverlay })}
+                              className={`w-12 h-6 rounded-full p-1 transition-all duration-300 focus:outline-none ${stagedHero.showOverlay ? 'bg-[#C8A25D]' : 'bg-white/10'}`}
+                            >
+                              <div className={`w-4 h-4 bg-black rounded-full shadow-md transition-all duration-300 transform ${stagedHero.showOverlay ? 'translate-x-6' : 'translate-x-0'}`} />
+                            </button>
+                          </div>
+
+                          {stagedHero.showOverlay && (
+                            <div>
+                              <div className="flex justify-between text-[10px] uppercase mb-1.5">
+                                <span>Overlay Darkness Density</span>
+                                <span className="text-[#C8A25D] font-bold">{stagedHero.overlayDarkness}%</span>
+                              </div>
+                              <input 
+                                type="range" 
+                                min="0" 
+                                max="100" 
+                                value={stagedHero.overlayDarkness}
+                                onChange={(e) => setStagedHero({ ...stagedHero, overlayDarkness: parseInt(e.target.value) })}
+                                className="w-full accent-[#C8A25D] bg-white/10 h-1 rounded-full cursor-pointer"
+                              />
+                            </div>
+                          )}
+
+                          <div>
+                            <span className="block text-[10px] uppercase text-white/50 mb-2">Typography alignment position</span>
+                            <div className="grid grid-cols-3 gap-2">
+                              {[
+                                { id: 'left', label: 'LEFT' },
+                                { id: 'center', label: 'CENTER' },
+                                { id: 'right', label: 'RIGHT' }
+                              ].map((pos) => {
+                                const active = stagedHero.textPosition === pos.id;
+                                return (
+                                  <button
+                                    key={pos.id}
+                                    type="button"
+                                    onClick={() => setStagedHero({ ...stagedHero, textPosition: pos.id })}
+                                    className={`py-2 px-1 text-[9px] uppercase tracking-wider rounded-xs border transition-all focus:outline-none font-bold ${active ? 'bg-[#C8A25D]/20 border-[#C8A25D] text-[#C8A25D]' : 'border-white/10 hover:border-white/30 text-white/60'}`}
+                                  >
+                                    {pos.label}
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+
+                      {/* CAMPAIGN HISTORY VAULT */}
+                      <div className="bg-[#0F0F0F] border border-white/5 rounded-xs p-6 space-y-4 select-none">
+                        <span className="text-[8px] font-mono tracking-widest text-[#C8A25D] uppercase font-bold block">D. CAMPAIGN HISTORY & LEGACY VAULT</span>
+                        
+                        {(!settings.heroHistory || settings.heroHistory.length === 0) ? (
+                          <div className="py-8 border border-dashed border-white/10 bg-black/25 rounded-xs text-center font-mono">
+                            <span className="text-[9px] text-white/30 uppercase tracking-wider block">No historical campaigns recorded</span>
+                            <p className="text-[8px] text-white/20 uppercase mt-1 max-w-[200px] mx-auto leading-relaxed">
+                              Saving or publishing new campaign configurations will automatically capture the previous ones in the archives.
+                            </p>
+                          </div>
+                        ) : (
+                          <div className="space-y-3 max-h-[300px] overflow-y-auto pr-1">
+                            {settings.heroHistory.map((h: any) => (
+                              <div 
+                                key={h.id} 
+                                className="bg-[#141414] border border-white/5 p-3 rounded-xs flex items-center space-x-3 group relative hover:border-[#C8A25D]/25 transition-all animate-fade-in"
+                              >
+                                <div className="w-12 h-12 rounded-xs overflow-hidden shrink-0 bg-black border border-white/10">
+                                  <img src={h.desktopImage} className="w-full h-full object-cover" />
+                                </div>
+                                <div className="flex-grow min-w-0 font-mono space-y-1">
+                                  <span className="text-[8px] text-white/40 block">
+                                    {new Date(h.timestamp).toLocaleDateString()} @ {new Date(h.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                  </span>
+                                  <h4 className="text-[10px] text-white/90 truncate uppercase tracking-wide font-serif font-bold">
+                                    {h.title || "Archived Campaign"}
+                                  </h4>
+                                  <div className="flex items-center space-x-3 pt-0.5">
+                                    <button
+                                      type="button"
+                                      onClick={() => {
+                                        if (confirm('Revert current staging parameters and load this archived campaign layout?')) {
+                                          setStagedHero({
+                                            desktopImage: h.desktopImage,
+                                            mobileImage: h.mobileImage || h.desktopImage,
+                                            title: h.title,
+                                            subtitle: h.subtitle,
+                                            tagline: h.tagline,
+                                            description: h.description || '',
+                                            buttonText: h.buttonText || 'Explore Masterpieces',
+                                            buttonLink: h.buttonLink || 'shop',
+                                            buttonTextSecondary: h.buttonTextSecondary || 'Shop Best Sellers',
+                                            buttonLinkSecondary: h.buttonLinkSecondary || 'best-sellers-section',
+                                            showOverlay: h.showOverlay ?? true,
+                                            overlayDarkness: h.overlayDarkness ?? 55,
+                                            textPosition: h.textPosition || 'left',
+                                            imageZoom: h.imageZoom ?? 100,
+                                            imageFocalPointX: h.imageFocalPointX ?? 50,
+                                            imageFocalPointY: h.imageFocalPointY ?? 35,
+                                            altText: h.altText || 'ARZEN Campaign',
+                                            imageTitle: h.imageTitle || 'Campaign Background',
+                                            lazyLoading: h.lazyLoading ?? false,
+                                            sectionEnabled: h.sectionEnabled !== false,
+                                          });
+                                          showToast('Archived campaign loaded into editor staging.', 'success');
+                                        }
+                                      }}
+                                      className="text-[#C8A25D] hover:text-white text-[8px] font-bold tracking-wider uppercase transition-all"
+                                    >
+                                      Load Draft
+                                    </button>
+                                    <span className="text-white/20 text-[8px]">•</span>
+                                    <button
+                                      type="button"
+                                      onClick={() => {
+                                        if (confirm('Are you sure you want to permanently purge this archived campaign from history? This cannot be undone.')) {
+                                          const nextHistory = settings.heroHistory?.filter((item: any) => item.id !== h.id) || [];
+                                          const updatedSettings = {
+                                            ...settings,
+                                            heroHistory: nextHistory
+                                          };
+                                          ArzenDatabase.saveSettings(updatedSettings);
+                                          setSettings(updatedSettings);
+                                          showToast('Archived campaign removed from history.', 'success');
+                                        }
+                                      }}
+                                      className="text-red-400 hover:text-red-300 text-[8px] tracking-wider uppercase transition-all"
+                                    >
+                                      Delete
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </div>
+              )}
+
+              {/* FULLSCREEN REAL LANDING PAGE HERO PREVIEW OVERLAY */}
+              {isFullscreenPreviewOpen && stagedHero && (
+                <div className="fixed inset-0 z-50 bg-[#0B0B0B] text-white flex flex-col font-sans animate-fade-in overflow-hidden">
+                  {/* Top Admin HUD banner */}
+                  <div className="w-full bg-black/85 backdrop-blur-md border-b border-[#C8A25D]/20 px-6 py-4 flex items-center justify-between z-50">
+                    <div className="flex items-center space-x-3">
+                      <span className="inline-block w-2.5 h-2.5 rounded-full bg-[#C8A25D] animate-ping" />
+                      <div>
+                        <span className="text-[9px] font-mono tracking-widest text-[#C8A25D] uppercase block font-bold">PREVIEW MODE</span>
+                        <h3 className="text-xs font-mono uppercase tracking-wider text-white font-bold">STAGED CAMPAIGN MASTERPIECE (UNPUBLISHED)</h3>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <span className="text-[10px] text-white/40 font-mono uppercase mr-4 hidden md:inline">Click close to return to workspace</span>
+                      <button
+                        type="button"
+                        onClick={() => setIsFullscreenPreviewOpen(false)}
+                        className="px-5 py-2 bg-[#C8A25D] hover:bg-white text-black font-mono font-bold text-[10px] uppercase tracking-wider rounded-xs transition-all shadow-lg shadow-[#C8A25D]/25"
+                      >
+                        Close Preview
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* True Responsive Landing Page Hero */}
+                  <div className="flex-grow relative w-full h-full overflow-hidden flex items-center justify-center bg-[#0B0B0B]">
+                    {stagedHero.sectionEnabled === false ? (
+                      <div className="text-center font-mono space-y-3">
+                        <span className="text-white/30 text-xs uppercase tracking-widest">Hero Section is Disabled</span>
+                        <p className="text-white/20 text-[10px] uppercase">The primary entrance is toggled off and will not display on the landing page.</p>
+                      </div>
+                    ) : (
+                      <div className="absolute inset-0 w-full h-full">
+                        {/* Hero Background with zoom & positioning */}
+                        <div className="absolute inset-0 z-0 overflow-hidden">
+                          <img 
+                            src={stagedHero.desktopImage || "/assets/arzen-duffle.svg"} 
+                            alt={stagedHero.altText || "ARZEN Luxury Campaign Background"}
+                            title={stagedHero.imageTitle || "ARZEN Campaign"}
+                            style={{
+                              transform: `scale(${1 + (stagedHero.imageZoom - 100) / 100})`,
+                              objectPosition: `${stagedHero.imageFocalPointX}% ${stagedHero.imageFocalPointY}%`,
+                            }}
+                            className="w-full h-full object-cover transition-all duration-300" 
+                          />
+                          {stagedHero.showOverlay && (
+                            <div 
+                              className="absolute inset-0 z-1" 
+                              style={{
+                                backgroundColor: `rgba(0, 0, 0, ${stagedHero.overlayDarkness / 100})`,
+                              }}
+                            />
+                          )}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 pointer-events-none z-1" />
+                        </div>
+
+                        {/* Centered Content Container */}
+                        <div className="max-w-7xl mx-auto w-full h-full relative z-10 px-6 sm:px-12 flex items-center">
+                          <div className={`w-full flex flex-col space-y-8 ${
+                            stagedHero.textPosition === 'center' ? 'text-center mx-auto items-center' :
+                            stagedHero.textPosition === 'right' ? 'text-right ml-auto mr-0 items-end' :
+                            'text-left mr-auto ml-0 items-start'
+                          }`}>
+                            <div className="inline-flex items-center space-x-2 bg-[#C8A25D]/15 border border-[#C8A25D]/35 px-4 py-2 rounded-full">
+                              <span className="inline-block w-2 h-2 rounded-full bg-[#C8A25D] animate-ping" />
+                              <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-[#C8A25D] font-bold">
+                                {stagedHero.subtitle || "THE HOUSE OF ARZEN"}
+                              </span>
+                            </div>
+
+                            <div className="space-y-4 max-w-xl sm:max-w-2xl">
+                              <h1 className="text-4xl sm:text-6xl lg:text-[76px] font-serif font-light tracking-tight text-white leading-[1.05] uppercase">
+                                {stagedHero.title || "A Legacy of Distinction"}
+                              </h1>
+                              <p className="text-[11.5px] font-mono tracking-[0.35em] text-[#C8A25D]/90 uppercase font-bold">
+                                {stagedHero.tagline || "BUILT DIFFERENT"}
+                              </p>
+                            </div>
+
+                            <p className="text-sm sm:text-base text-white/80 leading-relaxed font-sans font-light max-w-lg">
+                              {stagedHero.description || 'Every ARZEN bag represents a masterclass in architectural balance. Tailored by hand from French vegetable-tanned hides, enriched with solid brass hardware, and built to survive generations in effortless grace.'}
+                            </p>
+
+                            <div className="flex flex-col sm:flex-row items-center gap-4 pt-4 w-full sm:w-auto">
+                              <button
+                                type="button"
+                                className="w-full sm:w-auto px-8 py-4 bg-[#C8A25D] hover:bg-white text-[#0B0B0B] text-xs font-bold tracking-widest uppercase transition-all duration-300 rounded-xs flex items-center justify-center space-x-2 shadow-lg"
+                              >
+                                <span>{stagedHero.buttonText || "Explore Masterpieces"}</span>
+                              </button>
+                              <button
+                                type="button"
+                                className="w-full sm:w-auto px-8 py-4 bg-transparent hover:bg-white/5 text-white border border-[#C8A25D]/40 hover:border-white text-xs font-bold tracking-widest uppercase transition-colors duration-300 rounded-xs"
+                              >
+                                {stagedHero.buttonTextSecondary || "Shop Best Sellers"}
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
               )}
 

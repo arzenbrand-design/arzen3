@@ -13,6 +13,7 @@ interface HeaderProps {
   onOpenAccount: () => void;
   currency: 'INR' | 'USD' | 'EUR';
   setCurrency: (currency: 'INR' | 'USD' | 'EUR') => void;
+  onSelectCategory?: (category: string) => void;
 }
 
 export const ARZENLogo: React.FC<{ 
@@ -183,9 +184,24 @@ export default function Header({
   onOpenAccount,
   currency,
   setCurrency,
+  onSelectCategory,
 }: HeaderProps) {
   const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [categoriesDropdownOpen, setCategoriesDropdownOpen] = useState(false);
+  const [mobileCategoriesOpen, setMobileCategoriesOpen] = useState(false);
+
+  const categories = [
+    { name: 'Bags', desc: 'Silhouettes' },
+    { name: 'Wallets', desc: 'Essentials' },
+    { name: 'Sunglasses', desc: 'Eyewear' },
+    { name: 'Perfumes', desc: 'Scents' },
+    { name: 'Water Bottles', desc: 'Hydration' },
+    { name: 'Accessories', desc: 'Bespoke' },
+    { name: 'Travel Essentials', desc: 'Voyage' },
+    { name: 'Lifestyle', desc: 'Living' },
+    { name: 'Gift Collection', desc: 'Unboxing' },
+  ];
 
   const currencies: { code: 'INR' | 'USD' | 'EUR'; label: string; symbol: string }[] = [
     { code: 'INR', label: 'India (INR ₹)', symbol: '₹' },
@@ -284,6 +300,44 @@ export default function Header({
           >
             Shop Collection
           </button>
+          
+          {/* Categories Dropdown Link */}
+          <div 
+            className="relative pb-1"
+            onMouseEnter={() => setCategoriesDropdownOpen(true)}
+            onMouseLeave={() => setCategoriesDropdownOpen(false)}
+          >
+            <button 
+              className={`relative pb-0.5 cursor-pointer transition-all duration-300 hover:text-[#C8A25D] flex items-center space-x-1 after:absolute after:bottom-0 after:left-0 after:h-[1.5px] after:w-full after:bg-[#C8A25D] after:transition-transform after:duration-300 ${categoriesDropdownOpen ? 'text-[#C8A25D] after:scale-x-100' : 'text-white/70 after:scale-x-0 hover:after:scale-x-100'}`}
+            >
+              <span>Categories</span>
+              <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${categoriesDropdownOpen ? 'rotate-180' : ''}`} />
+            </button>
+
+            {categoriesDropdownOpen && (
+              <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[480px] bg-[#0E0E0E]/95 backdrop-blur-md border border-[#C8A25D]/30 rounded-xs shadow-2xl p-4 grid grid-cols-3 gap-3 z-50 text-left animate-fade-in">
+                {categories.map((cat) => (
+                  <button
+                    key={cat.name}
+                    onClick={() => {
+                      if (onSelectCategory) {
+                        onSelectCategory(cat.name);
+                      }
+                      setCategoriesDropdownOpen(false);
+                    }}
+                    className="flex flex-col p-2 border border-white/5 hover:border-[#C8A25D]/30 rounded-xs hover:bg-[#C8A25D]/5 transition-all duration-300 text-left focus:outline-none group/item cursor-pointer"
+                  >
+                    <span className="text-[10px] font-sans font-medium tracking-wider text-white group-hover/item:text-[#C8A25D] transition-colors uppercase">
+                      {cat.name}
+                    </span>
+                    <span className="text-[7.5px] font-mono tracking-widest text-[#C8A25D]/50 uppercase mt-0.5">
+                      {cat.desc}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
           <button 
             onClick={() => handleNavClick('lifestyle')} 
             className={`relative pb-1 cursor-pointer transition-all duration-300 hover:text-[#C8A25D] after:absolute after:bottom-0 after:left-0 after:h-[1.5px] after:w-full after:bg-[#C8A25D] after:transition-transform after:duration-300 ${currentView === 'lifestyle' ? 'text-[#C8A25D] after:scale-x-100' : 'text-white/70 after:scale-x-0 hover:after:scale-x-100'}`}
@@ -392,6 +446,39 @@ export default function Header({
               >
                 Shop Collection
               </button>
+
+              {/* Collapsible Categories Section */}
+              <div className="flex flex-col">
+                <button 
+                  type="button"
+                  onClick={() => setMobileCategoriesOpen(!mobileCategoriesOpen)} 
+                  className="flex items-center justify-between text-left hover:text-[#C8A25D] transition-colors py-1 text-white uppercase focus:outline-none cursor-pointer"
+                >
+                  <span>Categories</span>
+                  <ChevronDown className={`w-3.5 h-3.5 text-[#C8A25D] transition-transform duration-200 ${mobileCategoriesOpen ? 'rotate-180' : ''}`} />
+                </button>
+                
+                {mobileCategoriesOpen && (
+                  <div className="pl-4 mt-2 mb-1 flex flex-col space-y-3 border-l border-[#C8A25D]/20 animate-fade-in">
+                    {categories.map((cat) => (
+                      <button
+                        key={cat.name}
+                        type="button"
+                        onClick={() => {
+                          if (onSelectCategory) {
+                            onSelectCategory(cat.name);
+                          }
+                          setMobileMenuOpen(false);
+                        }}
+                        className="text-left text-xs tracking-widest uppercase text-white/75 hover:text-[#C8A25D] transition-colors flex flex-col focus:outline-none cursor-pointer"
+                      >
+                        <span className="font-sans font-medium">{cat.name}</span>
+                        <span className="text-[7.5px] font-mono tracking-widest text-[#C8A25D]/50 mt-0.5">{cat.desc}</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
               <button 
                 onClick={() => handleNavClick('lifestyle')} 
                 className={`text-left hover:text-[#C8A25D] transition-colors py-1 ${currentView === 'lifestyle' ? 'text-[#C8A25D]' : 'text-white'}`}

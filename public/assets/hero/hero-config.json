@@ -1,0 +1,21 @@
+{
+  "heroBannerImage": "/assets/hero/arzen-hero.jpg",
+  "heroBannerImageMobile": "/assets/hero/arzen-hero-mobile.jpg",
+  "heroTitle": "A Legacy of Distinction",
+  "heroSubtitle": "THE HOUSE OF ARZEN",
+  "heroTagline": "BUILT DIFFERENT",
+  "heroButtonText": "Explore Masterpieces",
+  "heroButtonLink": "shop",
+  "heroButtonTextSecondary": "Shop Best Sellers",
+  "heroButtonLinkSecondary": "best-sellers-section",
+  "heroShowOverlay": true,
+  "heroOverlayDarkness": 55,
+  "heroTextPosition": "left",
+  "heroImageZoom": 100,
+  "heroImageFocalPointX": 50,
+  "heroImageFocalPointY": 35,
+  "heroImageAltText": "ARZEN Luxury Campaign Background",
+  "heroImageTitle": "ARZEN Campaign",
+  "heroImageLazyLoading": false,
+  "heroSectionEnabled": true
+}

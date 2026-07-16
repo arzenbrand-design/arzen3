@@ -1,6 +1,7 @@
 import { Product, Review, ProductColor, GalleryImage } from './types';
 import { products as initialProducts, reviews as initialReviews } from './data';
 import { lifestyleProducts } from './data/lifestyleProducts';
+import heroConfig from '../public/assets/hero/hero-config.json';
 
 export interface DbCategory {
   id: string;
@@ -90,12 +91,28 @@ export interface DbSettings {
   freeShippingThreshold: number;
   flatShippingCharge: number;
   heroBannerImage?: string;
+  heroBannerImageMobile?: string;
   heroTitle?: string;
   heroSubtitle?: string;
   heroTagline?: string;
+  heroButtonText?: string;
+  heroButtonLink?: string;
+  heroButtonTextSecondary?: string;
+  heroButtonLinkSecondary?: string;
+  heroShowOverlay?: boolean;
+  heroOverlayDarkness?: number;
+  heroTextPosition?: 'left' | 'center' | 'right';
+  heroImageZoom?: number;
+  heroImageFocalPointX?: number;
+  heroImageFocalPointY?: number;
+  heroImageAltText?: string;
+  heroImageTitle?: string;
+  heroImageLazyLoading?: boolean;
+  heroHistory?: any[];
   featuredProductIds?: string[];
   heroProductId?: string;
   enabledPaymentMethods?: string[];
+  heroSectionEnabled?: boolean;
 }
 
 // Low Stock limit configuration
@@ -326,10 +343,26 @@ const DEFAULT_SETTINGS: DbSettings = {
   googleAnalyticsId: 'UA-1928374-12',
   freeShippingThreshold: 10000,
   flatShippingCharge: 250,
-  heroBannerImage: 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=1600&q=80',
-  heroTitle: 'A Legacy of Distinction',
-  heroSubtitle: 'THE HOUSE OF ARZEN',
-  heroTagline: 'BUILT DIFFERENT',
+  heroBannerImage: heroConfig.heroBannerImage || '/assets/hero/arzen-hero.jpg',
+  heroBannerImageMobile: heroConfig.heroBannerImageMobile || '/assets/hero/arzen-hero-mobile.jpg',
+  heroTitle: heroConfig.heroTitle || 'A Legacy of Distinction',
+  heroSubtitle: heroConfig.heroSubtitle || 'THE HOUSE OF ARZEN',
+  heroTagline: heroConfig.heroTagline || 'BUILT DIFFERENT',
+  heroButtonText: heroConfig.heroButtonText || 'Explore Masterpieces',
+  heroButtonLink: heroConfig.heroButtonLink || 'shop',
+  heroButtonTextSecondary: heroConfig.heroButtonTextSecondary || 'Shop Best Sellers',
+  heroButtonLinkSecondary: heroConfig.heroButtonLinkSecondary || 'best-sellers-section',
+  heroShowOverlay: heroConfig.heroShowOverlay !== undefined ? heroConfig.heroShowOverlay : true,
+  heroOverlayDarkness: heroConfig.heroOverlayDarkness !== undefined ? heroConfig.heroOverlayDarkness : 55,
+  heroTextPosition: (heroConfig.heroTextPosition as any) || 'left',
+  heroImageZoom: heroConfig.heroImageZoom !== undefined ? heroConfig.heroImageZoom : 100,
+  heroImageFocalPointX: heroConfig.heroImageFocalPointX !== undefined ? heroConfig.heroImageFocalPointX : 50,
+  heroImageFocalPointY: heroConfig.heroImageFocalPointY !== undefined ? heroConfig.heroImageFocalPointY : 35,
+  heroImageAltText: heroConfig.heroImageAltText || 'ARZEN Luxury Campaign Background',
+  heroImageTitle: heroConfig.heroImageTitle || 'ARZEN Campaign',
+  heroImageLazyLoading: heroConfig.heroImageLazyLoading !== undefined ? heroConfig.heroImageLazyLoading : false,
+  heroSectionEnabled: heroConfig.heroSectionEnabled !== undefined ? heroConfig.heroSectionEnabled : true,
+  heroHistory: [],
   featuredProductIds: ['arz-001', 'arz-002', 'arz-003', 'arz-004'],
   heroProductId: 'arz-001',
   enabledPaymentMethods: ['COD', 'UPI', 'CreditCard', 'DebitCard', 'NetBanking', 'Wallets']
@@ -620,6 +653,29 @@ async function persistSettingsImagesAndGetCleanSettings(settings: any): Promise<
     await ArzenIDB.saveImage(imgId, cleanSettings.heroBannerImage);
     cleanSettings.heroBannerImage = `local-image://${imgId}`;
   }
+  if (cleanSettings.heroBannerImageMobile && isBase64Image(cleanSettings.heroBannerImageMobile)) {
+    const imgId = generateUUID();
+    await ArzenIDB.saveImage(imgId, cleanSettings.heroBannerImageMobile);
+    cleanSettings.heroBannerImageMobile = `local-image://${imgId}`;
+  }
+  if (cleanSettings.heroHistory && Array.isArray(cleanSettings.heroHistory)) {
+    const cleanHistory = [];
+    for (const h of cleanSettings.heroHistory) {
+      const cleanH = { ...h };
+      if (cleanH.desktopImage && isBase64Image(cleanH.desktopImage)) {
+        const imgId = generateUUID();
+        await ArzenIDB.saveImage(imgId, cleanH.desktopImage);
+        cleanH.desktopImage = `local-image://${imgId}`;
+      }
+      if (cleanH.mobileImage && isBase64Image(cleanH.mobileImage)) {
+        const imgId = generateUUID();
+        await ArzenIDB.saveImage(imgId, cleanH.mobileImage);
+        cleanH.mobileImage = `local-image://${imgId}`;
+      }
+      cleanHistory.push(cleanH);
+    }
+    cleanSettings.heroHistory = cleanHistory;
+  }
   return cleanSettings;
 }
 
@@ -634,6 +690,33 @@ async function restoreSettingsWithRealImages(settings: any): Promise<any> {
     } else {
       restoredSettings.heroBannerImage = 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=800';
     }
+  }
+  if (restoredSettings.heroBannerImageMobile && typeof restoredSettings.heroBannerImageMobile === 'string' && restoredSettings.heroBannerImageMobile.startsWith('local-image://')) {
+    const imgId = restoredSettings.heroBannerImageMobile.replace('local-image://', '');
+    const realBase64 = await ArzenIDB.getImage(imgId);
+    if (realBase64) {
+      restoredSettings.heroBannerImageMobile = realBase64;
+    } else {
+      restoredSettings.heroBannerImageMobile = 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=800';
+    }
+  }
+  if (restoredSettings.heroHistory && Array.isArray(restoredSettings.heroHistory)) {
+    const restoredHistory = [];
+    for (const h of restoredSettings.heroHistory) {
+      const restoredH = { ...h };
+      if (restoredH.desktopImage && typeof restoredH.desktopImage === 'string' && restoredH.desktopImage.startsWith('local-image://')) {
+        const imgId = restoredH.desktopImage.replace('local-image://', '');
+        const realBase64 = await ArzenIDB.getImage(imgId);
+        if (realBase64) restoredH.desktopImage = realBase64;
+      }
+      if (restoredH.mobileImage && typeof restoredH.mobileImage === 'string' && restoredH.mobileImage.startsWith('local-image://')) {
+        const imgId = restoredH.mobileImage.replace('local-image://', '');
+        const realBase64 = await ArzenIDB.getImage(imgId);
+        if (realBase64) restoredH.mobileImage = realBase64;
+      }
+      restoredHistory.push(restoredH);
+    }
+    restoredSettings.heroHistory = restoredHistory;
   }
   return restoredSettings;
 }
@@ -662,6 +745,19 @@ async function cleanUnusedImages(productsList: any[], settings: any) {
 
     if (settings && settings.heroBannerImage && typeof settings.heroBannerImage === 'string' && settings.heroBannerImage.startsWith('local-image://')) {
       referencedIds.add(settings.heroBannerImage.replace('local-image://', ''));
+    }
+    if (settings && settings.heroBannerImageMobile && typeof settings.heroBannerImageMobile === 'string' && settings.heroBannerImageMobile.startsWith('local-image://')) {
+      referencedIds.add(settings.heroBannerImageMobile.replace('local-image://', ''));
+    }
+    if (settings && settings.heroHistory && Array.isArray(settings.heroHistory)) {
+      settings.heroHistory.forEach((h: any) => {
+        if (h.desktopImage && typeof h.desktopImage === 'string' && h.desktopImage.startsWith('local-image://')) {
+          referencedIds.add(h.desktopImage.replace('local-image://', ''));
+        }
+        if (h.mobileImage && typeof h.mobileImage === 'string' && h.mobileImage.startsWith('local-image://')) {
+          referencedIds.add(h.mobileImage.replace('local-image://', ''));
+        }
+      });
     }
 
     // Preserve gallery image references from garbage collection
@@ -913,6 +1009,16 @@ export class ArzenDatabase {
           if (cleanSettings.heroBannerImage && isBase64Image(cleanSettings.heroBannerImage)) {
             cleanSettings.heroBannerImage = 'local-image://reference';
           }
+          if (cleanSettings.heroBannerImageMobile && isBase64Image(cleanSettings.heroBannerImageMobile)) {
+            cleanSettings.heroBannerImageMobile = 'local-image://reference';
+          }
+          if (cleanSettings.heroHistory && Array.isArray(cleanSettings.heroHistory)) {
+            cleanSettings.heroHistory = cleanSettings.heroHistory.map((h: any) => ({
+              ...h,
+              desktopImage: isBase64Image(h.desktopImage) ? 'local-image://reference' : h.desktopImage,
+              mobileImage: isBase64Image(h.mobileImage) ? 'local-image://reference' : h.mobileImage,
+            }));
+          }
           localStorage.setItem(`arzen_db_${k}`, JSON.stringify(cleanSettings));
         } else if (k === 'gallery' && Array.isArray(valToSave)) {
           const cleanGallery = valToSave.map(item => ({
@@ -1058,7 +1164,11 @@ export class ArzenDatabase {
   static getSettings() {
     this.initialize();
     const settings = this.getStorage<DbSettings>('settings', DEFAULT_SETTINGS);
-    return { ...DEFAULT_SETTINGS, ...settings };
+    const merged = { ...DEFAULT_SETTINGS, ...settings };
+    // Force reset to the original premium Unsplash hero campaign images
+    merged.heroBannerImage = '/assets/hero/arzen-hero.jpg';
+    merged.heroBannerImageMobile = '/assets/hero/arzen-hero-mobile.jpg';
+    return merged;
   }
 
   static saveSettings(settings: DbSettings): boolean {
