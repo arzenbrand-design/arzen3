@@ -151,11 +151,16 @@ export default function CartDrawer({
                         </button>
                       </div>
 
-                      {/* Swatch name detail */}
-                      <div className="flex items-center space-x-1.5 mt-1">
-                        <span className="w-2 h-2 rounded-full border border-white/10" style={{ backgroundColor: item.selectedColor.hex }} />
-                        <span className="text-[10px] text-white/50 font-mono tracking-wider uppercase">
-                          {item.selectedColor.name}
+                      {/* Swatch name detail & size */}
+                      <div className="flex flex-wrap items-center gap-2 mt-1">
+                        <div className="flex items-center space-x-1.5">
+                          <span className="w-2 h-2 rounded-full border border-white/10" style={{ backgroundColor: item.selectedColor.hex }} />
+                          <span className="text-[10px] text-white/50 font-mono tracking-wider uppercase">
+                            {item.selectedColor.name}
+                          </span>
+                        </div>
+                        <span className="text-[10px] text-[#C8A25D]/80 font-mono bg-[#C8A25D]/10 px-1.5 py-0.5 rounded-xs uppercase tracking-wider font-semibold">
+                          Size: {item.selectedSize || 'Regular'}
                         </span>
                       </div>
 

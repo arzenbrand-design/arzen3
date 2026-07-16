@@ -190,12 +190,15 @@ export default function App() {
   );
 
   // Cart Actions
-  const handleAddToCart = (product: Product, color?: ProductColor, quantity = 1) => {
+  const handleAddToCart = (product: Product, color?: ProductColor, quantity = 1, size?: string) => {
     const selectedColor = color || product.colors[0];
+    const selectedSize = size || product.sizes?.[0] || 'Regular';
     setCart((prevCart) => {
-      // Check if item with exact color already in cart
+      // Check if item with exact color and size already in cart
       const existingIdx = prevCart.findIndex(
-        (item) => item.product.id === product.id && item.selectedColor.name === selectedColor.name
+        (item) => item.product.id === product.id && 
+                  item.selectedColor.name === selectedColor.name &&
+                  (item.selectedSize || 'Regular') === selectedSize
       );
 
       if (existingIdx !== -1) {
@@ -203,7 +206,7 @@ export default function App() {
         updated[existingIdx].quantity += quantity;
         return updated;
       } else {
-        return [...prevCart, { product, quantity, selectedColor }];
+        return [...prevCart, { product, quantity, selectedColor, selectedSize }];
       }
     });
     setCartOpen(true);
@@ -277,10 +280,11 @@ export default function App() {
   };
 
   // Direct checkout action from card click
-  const handleBuyNowDirect = (product: Product, color?: ProductColor, quantity = 1) => {
+  const handleBuyNowDirect = (product: Product, color?: ProductColor, quantity = 1, size?: string) => {
     const selectedColor = color || product.colors[0];
+    const selectedSize = size || product.sizes?.[0] || 'Regular';
     // Clear and set cart with this single product to trigger checkout direct
-    setCart([{ product, quantity, selectedColor }]);
+    setCart([{ product, quantity, selectedColor, selectedSize }]);
     setCheckoutOpen(true);
   };
 
@@ -964,12 +968,12 @@ export default function App() {
             onBack={() => {
               window.history.back();
             }}
-            onAddToCart={(p, col, qty) => handleAddToCart(p, col, qty)}
+            onAddToCart={(p, col, qty, size) => handleAddToCart(p, col, qty, size)}
             onToggleWishlist={handleToggleWishlist}
             isWishlisted={wishlist.some((item) => item.id === selectedProductDetails.id)}
             currency={currency}
-            onBuyNow={(p, col, qty) => {
-              handleAddToCart(p, col, qty);
+            onBuyNow={(p, col, qty, size) => {
+              handleAddToCart(p, col, qty, size);
               setCartOpen(false);
               setCheckoutOpen(true);
             }}
@@ -1109,34 +1113,52 @@ export default function App() {
                     </div>
                   </div>
 
-                  {/* Simulated past orders */}
+                  {/* Real orders history ledger */}
                   <div className="space-y-3">
                     <h4 className="text-xs font-mono tracking-widest uppercase text-[#C8A25D] font-bold border-b border-white/5 pb-2">
                       Acquired Masterpieces History
                     </h4>
                     
-                    <div className="p-4 bg-[#0F0F0F] border border-white/5 rounded-xs space-y-3 text-xs">
-                      <div className="flex justify-between items-center text-[10px] font-mono border-b border-white/5 pb-2 text-white/50">
-                        <span>ORDER #ARZ-382947</span>
-                        <span className="text-green-500 uppercase font-bold">DELIVERED</span>
+                    {ArzenDatabase.getOrders().length === 0 ? (
+                      <p className="text-[10px] font-sans text-white/40 italic py-3 text-center bg-[#0F0F0F] border border-white/5 rounded-xs">
+                        No transactions registered yet on this device ledger.
+                      </p>
+                    ) : (
+                      <div className="space-y-3 max-h-[35vh] overflow-y-auto pr-1">
+                        {ArzenDatabase.getOrders().map((ord) => (
+                          <div key={ord.id} className="p-4 bg-[#0F0F0F] border border-[#C8A25D]/10 rounded-xs space-y-3 text-xs">
+                            <div className="flex justify-between items-center text-[10px] font-mono border-b border-white/5 pb-1.5 text-white/50">
+                              <span>ORDER REFERENCE: {ord.id}</span>
+                              <span className={`font-bold uppercase ${ord.status === 'Cancelled' ? 'text-red-500' : 'text-green-500'}`}>
+                                {ord.status}
+                              </span>
+                            </div>
+                            <div className="space-y-2">
+                              {ord.items.map((item, idx) => (
+                                <div key={idx} className="flex items-center space-x-3">
+                                  <img 
+                                    src={item.selectedColor?.image || item.product.images[0]} 
+                                    alt={item.product.name} 
+                                    referrerPolicy="no-referrer"
+                                    className="w-10 h-12 object-cover bg-black border border-white/10 rounded-xs flex-shrink-0" 
+                                  />
+                                  <div className="min-w-0">
+                                    <strong className="text-white font-medium block text-[11px] truncate">{item.product.name}</strong>
+                                    <span className="text-[9.5px] text-white/40 font-mono mt-0.5 block uppercase">
+                                      {item.selectedColor?.name || 'Standard'} • {item.selectedSize || 'Regular'} • QTY {item.quantity}
+                                    </span>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                            <div className="flex justify-between items-center pt-2 border-t border-white/5 text-[10px] font-mono">
+                              <span className="text-white/40">{new Date(ord.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                              <span className="text-white font-bold">{formatPrice(ord.total, currency)}</span>
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                      <div className="flex items-center space-x-3">
-                        <img 
-                          src="/assets/arzen-tote-elevate.svg" 
-                          alt="Signature Tote" 
-                          referrerPolicy="no-referrer"
-                          className="w-10 h-12 object-cover bg-black rounded-xs flex-shrink-0" 
-                        />
-                        <div>
-                          <strong className="text-white font-medium block">ARZEN Signature Tote</strong>
-                          <span className="text-[10px] text-white/40 font-mono mt-0.5 block uppercase">MATTE BLACK • QTY 1</span>
-                        </div>
-                      </div>
-                      <div className="flex justify-between items-center pt-2 border-t border-white/5 text-[10px] font-mono">
-                        <span className="text-white/40">Acquired June 12, 2026</span>
-                        <span className="text-white font-bold">{formatPrice(14999, currency)}</span>
-                      </div>
-                    </div>
+                    )}
                   </div>
 
                   {/* Account concierge support info */}

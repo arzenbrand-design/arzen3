@@ -18,7 +18,7 @@ import {
   ChevronRight,
   Send
 } from 'lucide-react';
-import { Product, ProductColor } from '../types';
+import { Product, ProductColor, Review } from '../types';
 import { formatPrice } from '../utils';
 import ProductCard from './ProductCard';
 
@@ -26,11 +26,11 @@ interface ProductDetailsProps {
   product: Product;
   allProducts: Product[];
   onBack: () => void;
-  onAddToCart: (product: Product, selectedColor: ProductColor, quantity: number) => void;
+  onAddToCart: (product: Product, selectedColor: ProductColor, quantity: number, selectedSize?: string) => void;
   onToggleWishlist: (product: Product) => void;
   isWishlisted: boolean;
   currency: 'INR' | 'USD' | 'EUR';
-  onBuyNow: (product: Product, selectedColor: ProductColor, quantity: number) => void;
+  onBuyNow: (product: Product, selectedColor: ProductColor, quantity: number, selectedSize?: string) => void;
   onNavigateToProduct: (product: Product) => void;
 }
 
@@ -53,13 +53,71 @@ export default function ProductDetails({
   const [isCopied, setIsCopied] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
   
+  // Custom enhanced states for dynamic online shopping features
+  const [selectedSize, setSelectedSize] = useState<string>(product.sizes?.[0] || 'Regular');
+  const [includeCompanion, setIncludeCompanion] = useState(false);
+
+  // Initialize review list with premium feedback
+  const [reviewsList, setReviewsList] = useState<Review[]>([
+    {
+      id: 'rev-1',
+      name: 'Elena Rostova',
+      role: 'Private Curator, Milan',
+      rating: 5,
+      comment: 'The stitching on this piece is unlike anything I have inspected from traditional luxury houses. The structural integrity is rigid, yet the leather smells rich and natural.',
+      date: 'June 28, 2026',
+      verified: true
+    },
+    {
+      id: 'rev-2',
+      name: 'Aditya Birla',
+      role: 'Sovereign Client, Mumbai',
+      rating: 5,
+      comment: 'An exquisite masterpiece. Handcrafted perfection. Received mine in Bokaro in a beautiful custom sealed metal trunk. Worth every single rupee.',
+      date: 'May 14, 2026',
+      verified: true
+    }
+  ]);
+  const [newReview, setNewReview] = useState({ name: '', role: '', rating: 5, comment: '' });
+  const [submittingReview, setSubmittingReview] = useState(false);
+  const [reviewSuccess, setReviewSuccess] = useState(false);
+  
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  // Determine a matching companion accessory for the Frequently Bought Together bundle
+  const companionProduct = allProducts.find(p => p.id !== product.id && p.category === 'Bottles') ||
+                           allProducts.find(p => p.id !== product.id && p.price < 12000) ||
+                           allProducts.find(p => p.id !== product.id);
+
+  const handleAddReview = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newReview.name || !newReview.comment) return;
+    setSubmittingReview(true);
+    setTimeout(() => {
+      const added: Review = {
+        id: `rev-user-${Date.now()}`,
+        name: newReview.name,
+        role: newReview.role || 'Verified Sovereign Client',
+        rating: newReview.rating,
+        comment: newReview.comment,
+        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+        verified: true
+      };
+      setReviewsList(prev => [added, ...prev]);
+      setNewReview({ name: '', role: '', rating: 5, comment: '' });
+      setSubmittingReview(false);
+      setReviewSuccess(true);
+      setTimeout(() => setReviewSuccess(false), 4000);
+    }, 600);
+  };
 
   // Sync color selection and active image if color changes
   useEffect(() => {
     setSelectedColor(product.colors[0]);
     setActiveImageIndex(0);
     setQuantity(1);
+    setSelectedSize(product.sizes && product.sizes.length > 0 ? product.sizes[0] : 'Regular');
+    setIncludeCompanion(false);
   }, [product]);
 
   useEffect(() => {
@@ -436,6 +494,99 @@ export default function ProductDetails({
               </div>
             </div>
 
+            {/* Architectural Size Selection */}
+            <div className="space-y-4 border-t border-[#C8A25D]/15 pt-6">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-[#C8A25D] font-bold">
+                  Select Architectural Size
+                </span>
+                <span className="text-[11px] font-mono text-white/50 bg-[#161616] px-2.5 py-1 border border-white/5 rounded-xs uppercase">
+                  Selected: <strong className="text-white">{selectedSize}</strong>
+                </span>
+              </div>
+              
+              <div className="flex flex-wrap gap-2.5">
+                {(product.sizes || ['Regular', 'Grande', 'Mini']).map((sz) => (
+                  <button
+                    key={sz}
+                    onClick={() => setSelectedSize(sz)}
+                    className={`px-4 py-2 border font-mono text-[10.5px] font-bold tracking-wider rounded-xs uppercase transition-all duration-300 cursor-pointer min-h-[38px] ${
+                      selectedSize === sz
+                        ? 'bg-[#C8A25D] text-[#0B0B0B] border-[#C8A25D] shadow-[0_0_12px_rgba(200,162,93,0.35)]'
+                        : 'bg-transparent border-white/10 text-white/70 hover:border-[#C8A25D]/50 hover:text-white'
+                    }`}
+                  >
+                    {sz}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Frequently Bought Together (FBT) Bundle Deal widget */}
+            {companionProduct && (
+              <div className="border border-[#C8A25D]/20 bg-[#0F0F0F] p-4.5 rounded-xs space-y-3.5 border-t">
+                <div className="flex items-center space-x-2">
+                  <Sparkles className="w-4 h-4 text-[#C8A25D] animate-pulse" />
+                  <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-[#C8A25D] font-bold">
+                    FREQUENTLY BOUGHT TOGETHER (10% BUNDLE BENEFIT)
+                  </span>
+                </div>
+                
+                <div className="flex items-center space-x-4">
+                  <div className="flex items-center space-x-2 bg-black/40 p-1 rounded-xs">
+                    <img 
+                      src={product.images[0]} 
+                      alt={product.name} 
+                      referrerPolicy="no-referrer"
+                      className="w-10 h-12 object-cover bg-black rounded-xs border border-white/5" 
+                    />
+                    <span className="text-lg font-light text-white/40 font-sans">+</span>
+                    <img 
+                      src={companionProduct.images[0]} 
+                      alt={companionProduct.name} 
+                      referrerPolicy="no-referrer"
+                      className="w-10 h-12 object-cover bg-black rounded-xs border border-[#C8A25D]/30" 
+                    />
+                  </div>
+                  <div className="flex-1 text-xs space-y-0.5">
+                    <span className="text-white/40 block font-mono text-[9px] tracking-wider">COMPANION CO-ORDINATE</span>
+                    <strong className="text-white font-medium block leading-snug">{companionProduct.name}</strong>
+                    <span className="text-white/50 font-sans font-light text-[11px] block">
+                      Enhance your carry collection by matching with this premium accessory.
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between border-t border-white/5 pt-3 select-none">
+                  <label className="flex items-center space-x-2.5 cursor-pointer text-xs">
+                    <input 
+                      type="checkbox" 
+                      checked={includeCompanion}
+                      onChange={(e) => setIncludeCompanion(e.target.checked)}
+                      className="accent-[#C8A25D] w-4 h-4 cursor-pointer"
+                    />
+                    <span className="text-white/80 font-light font-sans text-xs">
+                      Acquire matching {companionProduct.name} together (Save 10% on Bundle)
+                    </span>
+                  </label>
+                </div>
+
+                {includeCompanion && (
+                  <div className="p-3 bg-[#C8A25D]/10 border border-[#C8A25D]/35 rounded-xs flex items-center justify-between text-xs font-mono">
+                    <span className="text-white/60 font-sans">Set Bundle Price:</span>
+                    <div className="text-right space-x-1.5">
+                      <span className="text-white/30 line-through text-[11px]">
+                        {formatPrice(product.price + companionProduct.price, currency)}
+                      </span>
+                      <strong className="text-[#C8A25D] font-bold text-sm">
+                        {formatPrice(Math.round((product.price + companionProduct.price) * 0.9), currency)}
+                      </strong>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
             {/* Quantitative Selection & Purchasing Control Deck */}
             <div className="bg-[#0F0F0F] border border-white/5 p-5 rounded-xs space-y-4">
               <div className="flex flex-col sm:flex-row items-center gap-4">
@@ -513,7 +664,12 @@ export default function ProductDetails({
               {/* Huge Golden Button Call to Actions */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4.5 pt-2">
                 <button
-                  onClick={() => onAddToCart(product, selectedColor, quantity)}
+                  onClick={() => {
+                    onAddToCart(product, selectedColor, quantity, selectedSize);
+                    if (includeCompanion && companionProduct) {
+                      onAddToCart(companionProduct, companionProduct.colors[0], 1, companionProduct.sizes?.[0] || 'Regular');
+                    }
+                  }}
                   className="w-full py-4 bg-[#141414] hover:bg-[#C8A25D] text-white hover:text-[#0B0B0B] border border-[#C8A25D]/40 hover:border-transparent text-[11px] font-bold tracking-widest uppercase transition-all duration-300 rounded-xs flex items-center justify-center space-x-2 focus:outline-none cursor-pointer min-h-[50px] shadow-lg shadow-black/50"
                   id="add-to-bag-details-btn"
                 >
@@ -522,12 +678,37 @@ export default function ProductDetails({
                 </button>
                 
                 <button
-                  onClick={() => onBuyNow(product, selectedColor, quantity)}
+                  onClick={() => {
+                    onBuyNow(product, selectedColor, quantity, selectedSize);
+                    if (includeCompanion && companionProduct) {
+                      onAddToCart(companionProduct, companionProduct.colors[0], 1, companionProduct.sizes?.[0] || 'Regular');
+                    }
+                  }}
                   className="w-full py-4 bg-[#C8A25D] hover:bg-white text-[#0B0B0B] text-[11px] font-bold tracking-widest uppercase transition-all duration-300 rounded-xs flex items-center justify-center focus:outline-none cursor-pointer min-h-[50px] shadow-lg shadow-[#C8A25D]/10"
                   id="buy-now-details-btn"
                 >
                   <span>COMMISSION IMMEDIATELY (BUY NOW)</span>
                 </button>
+              </div>
+            </div>
+
+            {/* Delivery estimate */}
+            <div className="p-4 bg-[#0F0F0F] border border-[#C8A25D]/10 rounded-xs flex items-center space-x-3.5">
+              <Truck className="w-5 h-5 text-[#C8A25D] flex-shrink-0" />
+              <div className="text-xs">
+                <strong className="text-white block font-mono uppercase text-[9px] tracking-wider text-[#C8A25D] mb-0.5">DHL Air-Priority Express Delivery Estimate:</strong>
+                <span className="text-white/60 font-light font-sans text-[11px]">
+                  Bespoke shipment packing complete. Delivered to your doorstep by{' '}
+                  <strong className="text-white font-mono font-bold">
+                    {new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', {
+                      weekday: 'long',
+                      month: 'short',
+                      day: 'numeric',
+                      year: 'numeric'
+                    })}
+                  </strong>{' '}
+                  (Complimentary Secure Express).
+                </span>
               </div>
             </div>
 
@@ -615,7 +796,11 @@ export default function ProductDetails({
                 <div className="space-y-1">
                   <span className="block font-mono tracking-widest uppercase text-[#C8A25D] font-bold">RETURNS</span>
                   <p className="text-white/60 leading-normal font-sans font-light">
-                    {product.returns || 'Complimentary 7-day doorstep return pickup if the leather allocation does not fit perfectly.'}
+                    {product.returnEnabled !== false ? (
+                      <>Complimentary {product.returnDays || 7}-day return or {product.replacementEnabled !== false ? 'replacement' : 'repair'} pick-up if the allocation does not fit perfectly.</>
+                    ) : (
+                      <span className="text-[#FF5A5F] font-medium">Bespoke allocation sale. No returns or cancellations permitted.</span>
+                    )}
                   </p>
                 </div>
               </div>
@@ -624,6 +809,133 @@ export default function ProductDetails({
 
           </div>
 
+        </div>
+
+        {/* Customer Ratings & Live Reviews Portal */}
+        <div className="border-t border-[#C8A25D]/15 pt-12 space-y-8 select-none">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+            {/* Reviews list - 7 Columns */}
+            <div className="lg:col-span-7 space-y-6">
+              <div className="space-y-1">
+                <span className="text-[9px] font-mono tracking-[0.3em] text-[#C8A25D] uppercase block font-semibold">
+                  Sovereign Client Feedbacks
+                </span>
+                <h3 className="text-xl font-serif font-light text-white uppercase tracking-wider">
+                  Client Appraisals ({reviewsList.length})
+                </h3>
+              </div>
+
+              <div className="space-y-4 divide-y divide-white/5">
+                {reviewsList.map((rev) => (
+                  <div key={rev.id} className="pt-4 first:pt-0 space-y-2.5">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <strong className="text-white text-xs block font-mono uppercase tracking-wide">{rev.name}</strong>
+                        <span className="text-[10px] text-white/45 font-light">{rev.role}</span>
+                      </div>
+                      <div className="text-right">
+                        <div className="flex items-center space-x-0.5 justify-end mb-1">
+                          {[...Array(5)].map((_, rIdx) => (
+                            <Star 
+                              key={rIdx} 
+                              className={`w-3 h-3 ${rIdx < rev.rating ? 'fill-[#C8A25D] text-[#C8A25D]' : 'text-white/10'}`} 
+                            />
+                          ))}
+                        </div>
+                        <span className="text-[9px] text-[#C8A25D]/80 font-mono">{rev.date}</span>
+                      </div>
+                    </div>
+                    <p className="text-xs text-white/70 font-light leading-relaxed font-sans italic">
+                      “ {rev.comment} ”
+                    </p>
+                    <div className="flex items-center space-x-1.5 text-[9px] text-green-500 font-mono tracking-wider uppercase font-bold">
+                      <Check className="w-3 h-3" />
+                      <span>Verified Acquisition Registry</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Appraisal Registration - 5 Columns */}
+            <div className="lg:col-span-5 bg-[#0E0E0E] border border-[#C8A25D]/15 p-5 rounded-xs space-y-4">
+              <div className="space-y-1">
+                <span className="text-[8.5px] font-mono tracking-widest uppercase text-[#C8A25D] font-bold block">CLIENT REGISTRY</span>
+                <h4 className="text-sm font-mono text-white uppercase font-bold">Record Your Appraisement</h4>
+                <p className="text-[11px] text-white/40 font-sans leading-normal">
+                  Your feedback helps maintain the high material and stitching standards of our Bokaro steel city atelier.
+                </p>
+              </div>
+
+              {reviewSuccess && (
+                <div className="p-3 bg-green-500/10 border border-green-500/20 text-green-400 text-[10.5px] text-center font-mono uppercase">
+                  Appraisement submitted successfully to our Bokaro headquarters ledger!
+                </div>
+              )}
+
+              <form onSubmit={handleAddReview} className="space-y-3.5 text-xs">
+                <div>
+                  <label className="block text-[8.5px] font-mono tracking-widest uppercase text-[#C8A25D] mb-1">Star Assessment</label>
+                  <div className="flex items-center space-x-1.5">
+                    {[1, 2, 3, 4, 5].map((stars) => (
+                      <button
+                        type="button"
+                        key={stars}
+                        onClick={() => setNewReview(prev => ({ ...prev, rating: stars }))}
+                        className="focus:outline-none cursor-pointer"
+                      >
+                        <Star className={`w-5 h-5 ${stars <= newReview.rating ? 'fill-[#C8A25D] text-[#C8A25D]' : 'text-white/20 hover:text-[#C8A25D]/60'}`} />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-[8.5px] font-mono tracking-widest uppercase text-[#C8A25D] mb-1">Sovereign Client Name</label>
+                  <input 
+                    type="text" 
+                    required
+                    placeholder="E.g., Devashish Sen"
+                    value={newReview.name}
+                    onChange={(e) => setNewReview(prev => ({ ...prev, name: e.target.value }))}
+                    className="w-full bg-[#141414] border border-white/10 focus:border-[#C8A25D] rounded-xs px-3 py-2 text-white font-mono placeholder-white/10 uppercase focus:outline-none text-[11px]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[8.5px] font-mono tracking-widest uppercase text-[#C8A25D] mb-1">Corporate Title / Private Role</label>
+                  <input 
+                    type="text" 
+                    placeholder="E.g., Managing Partner, BCG"
+                    value={newReview.role}
+                    onChange={(e) => setNewReview(prev => ({ ...prev, role: e.target.value }))}
+                    className="w-full bg-[#141414] border border-white/10 focus:border-[#C8A25D] rounded-xs px-3 py-2 text-white font-mono placeholder-white/10 uppercase focus:outline-none text-[11px]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[8.5px] font-mono tracking-widest uppercase text-[#C8A25D] mb-1">Bespoke Feedback Comment</label>
+                  <textarea 
+                    required
+                    rows={3}
+                    placeholder="Describe your tactile, structural, and stitching observations..."
+                    value={newReview.comment}
+                    onChange={(e) => setNewReview(prev => ({ ...prev, comment: e.target.value }))}
+                    className="w-full bg-[#141414] border border-white/10 focus:border-[#C8A25D] rounded-xs px-3 py-2 text-white font-sans placeholder-white/10 focus:outline-none text-[11px] leading-relaxed"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={submittingReview}
+                  className="w-full py-3 bg-[#C8A25D] hover:bg-white text-black font-mono font-bold uppercase tracking-wider text-[10px] transition-colors rounded-xs flex items-center justify-center space-x-1.5 focus:outline-none cursor-pointer"
+                >
+                  <Send className="w-3.5 h-3.5" />
+                  <span>{submittingReview ? 'RECORDING LEDGER...' : 'SUBMIT BESPOKE APPRAISEMENT'}</span>
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
 
         {/* Related Products Section */}
@@ -652,11 +964,11 @@ export default function ProductDetails({
                 <ProductCard
                   product={relProduct}
                   onQuickView={() => onNavigateToProduct(relProduct)}
-                  onAddToCart={(p, col) => onAddToCart(p, col, 1)}
+                  onAddToCart={(p, col, qty, size) => onAddToCart(p, col, qty, size)}
                   onToggleWishlist={onToggleWishlist}
                   isWishlisted={isWishlisted}
                   currency={currency}
-                  onBuyNow={(p, col) => onBuyNow(p, col, 1)}
+                  onBuyNow={(p, col, qty, size) => onBuyNow(p, col, qty, size)}
                 />
               </div>
             ))}

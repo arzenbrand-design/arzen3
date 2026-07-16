@@ -3409,6 +3409,79 @@ export default function AdminDashboard({ onClose }: { onClose: () => void }) {
                 </div>
               </div>
 
+              {/* POLICY AND SIZE CONTROLS */}
+              <div className="bg-[#111] border border-white/5 rounded-xs p-5 space-y-4">
+                <div className="pb-2 border-b border-white/5">
+                  <span className="text-[8px] font-mono tracking-widest text-[#C8A25D] uppercase">BESPOKE OPERATIONAL CONFIGURATIONS</span>
+                  <h4 className="text-[11px] font-mono tracking-widest uppercase font-bold text-white mt-0.5">SIZE SELECTIONS & LOGISTICS POLICIES</h4>
+                </div>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-[10px] font-mono tracking-widest text-white/50 uppercase mb-2">
+                      AVAILABLE SIZES (COMMA SEPARATED)
+                    </label>
+                    <input 
+                      type="text" 
+                      placeholder="Regular, Grande, Mini"
+                      value={Array.isArray(isEditingProduct.sizes) ? isEditingProduct.sizes.join(', ') : (isEditingProduct.sizes || 'Regular, Grande, Mini')}
+                      onChange={(e) => {
+                        const sizesArr = e.target.value.split(',').map(s => s.trim()).filter(Boolean);
+                        setIsEditingProduct({ ...isEditingProduct, sizes: sizesArr });
+                      }}
+                      className="w-full bg-[#161616] border border-white/10 focus:border-[#C8A25D] rounded-xs p-3 text-xs text-white focus:outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[10px] font-mono tracking-widest text-white/50 uppercase mb-2">
+                      RETURN VALIDITY DAYS
+                    </label>
+                    <input 
+                      type="number" 
+                      min={1}
+                      max={120}
+                      placeholder="7"
+                      value={isEditingProduct.returnDays !== undefined ? isEditingProduct.returnDays : 7}
+                      onChange={(e) => setIsEditingProduct({ ...isEditingProduct, returnDays: parseInt(e.target.value) || 7 })}
+                      className="w-full bg-[#161616] border border-white/10 focus:border-[#C8A25D] rounded-xs p-3 text-xs text-white focus:outline-none font-mono"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                  <div className="flex items-center justify-between bg-[#161616] border border-white/10 rounded-xs p-3.5 select-none">
+                    <span className="text-[10px] font-mono tracking-wider text-white/70 uppercase">COD ENABLED</span>
+                    <input 
+                      type="checkbox"
+                      checked={isEditingProduct.codEnabled !== false}
+                      onChange={(e) => setIsEditingProduct({ ...isEditingProduct, codEnabled: e.target.checked })}
+                      className="accent-[#C8A25D] w-4 h-4 cursor-pointer"
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between bg-[#161616] border border-white/10 rounded-xs p-3.5 select-none">
+                    <span className="text-[10px] font-mono tracking-wider text-white/70 uppercase">RETURNS PERMITTED</span>
+                    <input 
+                      type="checkbox"
+                      checked={isEditingProduct.returnEnabled !== false}
+                      onChange={(e) => setIsEditingProduct({ ...isEditingProduct, returnEnabled: e.target.checked })}
+                      className="accent-[#C8A25D] w-4 h-4 cursor-pointer"
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between bg-[#161616] border border-white/10 rounded-xs p-3.5 select-none">
+                    <span className="text-[10px] font-mono tracking-wider text-white/70 uppercase">REPLACEMENTS PERMITTED</span>
+                    <input 
+                      type="checkbox"
+                      checked={isEditingProduct.replacementEnabled !== false}
+                      onChange={(e) => setIsEditingProduct({ ...isEditingProduct, replacementEnabled: e.target.checked })}
+                      className="accent-[#C8A25D] w-4 h-4 cursor-pointer"
+                    />
+                  </div>
+                </div>
+              </div>
+
               {/* LUXURY COLOR VARIANTS SECTION */}
               <div className="bg-[#111] border border-white/5 rounded-xs p-5 space-y-4">
                 <div className="flex justify-between items-center pb-2 border-b border-white/5">

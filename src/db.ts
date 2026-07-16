@@ -35,6 +35,7 @@ export interface DbOrder {
     product: Product;
     quantity: number;
     selectedColor: ProductColor;
+    selectedSize?: string;
   }[];
   subtotal: number;
   discount: number;
@@ -94,6 +95,7 @@ export interface DbSettings {
   heroTagline?: string;
   featuredProductIds?: string[];
   heroProductId?: string;
+  enabledPaymentMethods?: string[];
 }
 
 // Low Stock limit configuration
@@ -119,10 +121,15 @@ const enrichProducts = (prods: Product[]): (Product & { sku: string; stock: numb
   return prods.map((p, index) => ({
     ...p,
     sku: `ARZ-LXP-${100 + index}`,
-    stock: p.id === 'arz-005' ? 3 : p.id === 'arz-003' ? 4 : 15 + index, // Some low stock for triggers
+    stock: p.stock !== undefined ? p.stock : (p.id === 'arz-005' ? 3 : p.id === 'arz-003' ? 4 : 15 + index), // Some low stock for triggers
     discountPrice: p.price > 15000 ? Math.round(p.price * 0.9) : undefined,
     status: 'Active',
     tags: ['Luxury', 'Premium', p.category, 'Handmade'],
+    sizes: p.sizes || ['Regular', 'Grande', 'Mini'],
+    codEnabled: p.codEnabled !== undefined ? p.codEnabled : true,
+    returnEnabled: p.returnEnabled !== undefined ? p.returnEnabled : true,
+    replacementEnabled: p.replacementEnabled !== undefined ? p.replacementEnabled : true,
+    returnDays: p.returnDays !== undefined ? p.returnDays : 7,
     specifications: [
       `Materials: ${p.materials ? p.materials[0] : 'French Leather'}`,
       `Dimensions: ${p.dimensions || 'Standard'}`,
@@ -324,7 +331,8 @@ const DEFAULT_SETTINGS: DbSettings = {
   heroSubtitle: 'THE HOUSE OF ARZEN',
   heroTagline: 'BUILT DIFFERENT',
   featuredProductIds: ['arz-001', 'arz-002', 'arz-003', 'arz-004'],
-  heroProductId: 'arz-001'
+  heroProductId: 'arz-001',
+  enabledPaymentMethods: ['COD', 'UPI', 'CreditCard', 'DebitCard', 'NetBanking', 'Wallets']
 };
 
 const DEFAULT_GALLERY: GalleryImage[] = [
@@ -542,7 +550,7 @@ async function restoreGalleryWithRealImages(galleryList: GalleryImage[]): Promis
       if (realBase64) {
         restoredList.push({ ...item, url: realBase64 });
       } else {
-        restoredList.push({ ...item, url: '/assets/arzen-tote-elevate.svg' });
+        restoredList.push({ ...item, url: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=800' });
       }
     } else {
       restoredList.push(item);
@@ -564,7 +572,7 @@ async function restoreProductWithRealImages(product: any): Promise<any> {
         if (realBase64) {
           restoredImages.push(realBase64);
         } else {
-          restoredImages.push('/assets/arzen-tote-elevate.svg');
+          restoredImages.push('https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=800');
         }
       } else {
         restoredImages.push(img);
@@ -583,7 +591,7 @@ async function restoreProductWithRealImages(product: any): Promise<any> {
         if (realBase64) {
           restoredCol.image = realBase64;
         } else {
-          restoredCol.image = '/assets/arzen-tote-elevate.svg';
+          restoredCol.image = 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=800';
         }
       }
       restoredColors.push(restoredCol);
@@ -624,7 +632,7 @@ async function restoreSettingsWithRealImages(settings: any): Promise<any> {
     if (realBase64) {
       restoredSettings.heroBannerImage = realBase64;
     } else {
-      restoredSettings.heroBannerImage = '/assets/arzen-duffle.svg';
+      restoredSettings.heroBannerImage = 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=800';
     }
   }
   return restoredSettings;
@@ -930,9 +938,14 @@ export class ArzenDatabase {
       const enrichedLifestyle = lifestyleProducts.map((p, index) => ({
         ...p,
         sku: `ARZ-LXP-LF-${100 + index}`,
-        stock: p.id === 'arz-lf-001' ? 3 : p.id === 'arz-lf-008' ? 4 : 20 + index,
+        stock: p.stock !== undefined ? p.stock : (p.id === 'arz-lf-001' ? 3 : p.id === 'arz-lf-008' ? 4 : 20 + index),
         status: 'Active',
         tags: ['Luxury', 'Premium', p.category, 'Lifestyle'],
+        sizes: p.sizes || ['Regular', 'Grande', 'Mini'],
+        codEnabled: p.codEnabled !== undefined ? p.codEnabled : true,
+        returnEnabled: p.returnEnabled !== undefined ? p.returnEnabled : true,
+        replacementEnabled: p.replacementEnabled !== undefined ? p.replacementEnabled : true,
+        returnDays: p.returnDays !== undefined ? p.returnDays : 7,
         specifications: [
           `Materials: ${p.materials ? p.materials[0] : 'Premium Composite'}`,
           `Dimensions: ${p.dimensions || 'Standard'}`,
